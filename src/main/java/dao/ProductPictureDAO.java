@@ -1,17 +1,13 @@
 package dao;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductPictureDAO implements ProductPicture_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/fallelove?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/fallelove2?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "850811";
 	private static final String INSERT_STMT = "INSERT INTO ProductPicture (pNo,pPic) VALUES (?,?)";
@@ -19,6 +15,9 @@ public class ProductPictureDAO implements ProductPicture_interface {
 	private static final String GET_ONE_STMT = "SELECT pPicNo, pNo, pPic FROM ProductPicture where pPicNo = ?";
 	private static final String UPDATE = "UPDATE ProductPicture set pNo=?, pPic=? where pPicNo = ?";
 
+//	private Integer pPicNo;
+//private Integer pNo;
+//private byte[] pPic;
 	@Override
 	public void insert(ProductPictureVO productPictureVO) {
 
@@ -34,8 +33,8 @@ public class ProductPictureDAO implements ProductPicture_interface {
 			pstmt.setInt(1, productPictureVO.getpNo());
 			pstmt.setBytes(2, productPictureVO.getpPic());
 
-			pstmt.executeUpdate("set auto_increment_offset=1;");
-			pstmt.executeUpdate("set auto_increment_increment=1;");
+			pstmt.executeUpdate("set auto_increment_offset=10;");
+			pstmt.executeUpdate("set auto_increment_increment=3;");
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -188,6 +187,8 @@ public class ProductPictureDAO implements ProductPicture_interface {
 				productPictureVO.setpPicNo(rs.getInt("pPicNo"));
 				productPictureVO.setpNo(rs.getInt("pNo"));
 				productPictureVO.setpPic(rs.getBytes("pPic"));
+
+
 				list.add(productPictureVO); // Store the row in the list
 			}
 
@@ -232,28 +233,29 @@ public class ProductPictureDAO implements ProductPicture_interface {
 	}
 
 	public static void main(String[] args) throws IOException {
-		
+
 		ProductPictureDAO dao = new ProductPictureDAO();
-//新增		
-//	    ProductPictureVO productPictureVO1 = new ProductPictureVO();
-//	    productPictureVO1.setpNo(22);
-//	    byte[] pic = getPictureByteArray("images/image.jpg");
-//	    productPictureVO1.setpPic(pic);
-//	    dao.insert(productPictureVO1);
+//新增
+	    ProductPictureVO productPictureVO1 = new ProductPictureVO();
+	    productPictureVO1.setpNo(22);
+
+	    byte[] pic = getPictureByteArray("C:\\Users\\TMP-214\\Desktop\\冠宏BLOB\\items\\FC_Real_Madrid.png");
+	    productPictureVO1.setpPic(pic);
+	    dao.insert(productPictureVO1);
 // 修改
-		ProductPictureVO productPictureVO2 = new ProductPictureVO();
-		productPictureVO2.setpPicNo(4);
-		productPictureVO2.setpNo(42);
-		 byte[] pic = getPictureByteArray("images/image.jpg");
-	productPictureVO2.setpPic(pic);
-		dao.update(productPictureVO2);
+//		ProductPictureVO productPictureVO2 = new ProductPictureVO();
+//		productPictureVO2.setpPicNo(10);
+//		productPictureVO2.setpNo(42);
+//		 byte[] pic = getPictureByteArray("image.jpg");
+//	productPictureVO2.setpPic(pic);
+//		dao.update(productPictureVO2);
 
 		// 查詢
-		ProductPictureVO productPictureVO3 = dao.findByPrimaryKey(10);
-		System.out.print(productPictureVO3.getpPicNo() + ",");
-		System.out.print(productPictureVO3.getpNo() + ",");
-		System.out.println(productPictureVO3.getpPic());
-		System.out.println("---------------------");
+//		ProductPictureVO productPictureVO3 = dao.findByPrimaryKey(10);
+//		System.out.print(productPictureVO3.getpPicNo() + ",");
+//		System.out.print(productPictureVO3.getpNo() + ",");
+//		System.out.println(productPictureVO3.getpPic());
+//		System.out.println("---------------------");
 
 		// 查詢所有
 		List<ProductPictureVO> list = dao.getAll();
