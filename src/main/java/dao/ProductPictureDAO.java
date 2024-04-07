@@ -239,7 +239,7 @@ public class ProductPictureDAO implements ProductPicture_interface {
 	    ProductPictureVO productPictureVO1 = new ProductPictureVO();
 	    productPictureVO1.setpNo(22);
 
-	    byte[] pic = getPictureByteArray("C:\\Users\\TMP-214\\Desktop\\冠宏BLOB\\items\\FC_Real_Madrid.png");
+	    byte[] pic = getPictureByteArray("src/main/webapp/images/image.jpg");
 	    productPictureVO1.setpPic(pic);
 	    dao.insert(productPictureVO1);
 // 修改
