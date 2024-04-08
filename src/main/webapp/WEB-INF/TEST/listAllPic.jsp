@@ -13,20 +13,20 @@
 <%--private Integer pNo;--%>
 <%--private byte[] pPic;--%>
 <form action="#" method="get" id="the_form">
-<label for="pPicNo">商品照片編號:</label><br>
-<input id="pPicNo" type="text" name="pPicNo"><br>
-<label for="pNo">商品編號:</label><br>
-<input id="pNo" type="text" name="pNo"><br>
-<label>商品圖片：</label>
-<input type="file" id="pPic" name="pPic">
+    <label for="pPicNo">商品照片編號:</label><br>
+    <input id="pPicNo" type="text" name="pPicNo"><br>
+    <label for="pNo">商品編號:</label><br>
+    <input id="pNo" type="text" name="pNo"><br>
+    <label>商品圖片：</label>
+    <input type="file" id="pPic" name="pPic">
 
-<div id="preview">
-    <span class="text" >預覽圖</span>
-</div>
+    <div id="preview">
+        <span class="text" >預覽圖</span>
+    </div>
     <input type="submit" value="新增">
 </form>
 
-    <table>
+<table>
     <tr>
         <th>
             商品照片編號

@@ -1,6 +1,6 @@
 package dao;
 
-public class ProductPictureVO {
+public class ProductPictureVO implements java.io.Serializable {
 	
 	    private Integer pPicNo;
 	    private Integer pNo;

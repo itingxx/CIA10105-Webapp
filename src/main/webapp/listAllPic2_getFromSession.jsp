@@ -1,19 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="dao.*" %>
+<%@ page import="dao.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
     ProductPictureDAO dao = new ProductPictureDAO();
-    List<ProductPictureVO> list = dao.getAll();
-    pageContext.setAttribute("list",list);
+    List<ProductPictureVO> list = dao.getAll();       // 此行的list變數(物件)將提供page1.file的第11行取得查詢到的總筆數，再由page1.file進行分頁的需要
+    pageContext.setAttribute("list",list); // 將上一行的list變數(物件)存入當前頁面pageContext，再由底下的第73行由JSTL的forEach列印出結果
 %>
 
 
 <html>
 <head>
-    <title>所有照片資料 - listAllpic.jsp</title>
+    <title>所有員工資料 - listAllPic2_byDAO.jsp</title>
 
     <style>
         table#table-1 {
@@ -51,11 +51,11 @@
 </head>
 <body bgcolor='white'>
 
-<h4>此頁練習w..採用 EL 的寫法取值:</h4>
+<h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
     <tr><td>
-        <h3>所有員工資料 - listAllPic.jsp</h3>
-        <h4><a href="index_page.jsp"><img src="image.jpg" width="100" height="32" border="0">回首頁</a></h4>
+        <h3>所有員工資料 - listAllPic2_byDAO.jsp</h3>
+        <h4><a href="SelectPage.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
     </td></tr>
 </table>
 
@@ -64,25 +64,18 @@
         <th>照片編號</th>
         <th>商品編號</th>
         <th>照片</th>
-
     </tr>
-
-    <c:forEach var="picVO" items="${list}">
-
+    <%@ include file="page1.file" %>
+    <c:forEach var="ProductPictureVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
         <tr>
-            <td>${picVO.pPicNo}</td>
-            <td>${picVO.pNo}</td>
-            <td>
-
-                <c:if test="${picVO.pPic ne null}">
-                    <img src="data:image/png;base64,${Base64.getEncoder().encodeToString(picVO.pPic)}" alt="照片"  width="100" ;height="32">
-                </c:if>
-            </td>
+            <td>${ProductPictureVO.pPicNo}</td>
+            <td>${ProductPictureVO.pNo}</td>
+            <td>${ProductPictureVO.pPic}</td>
 
         </tr>
-    </c:forEach>
+ </c:forEach>
 </table>
-
+<%@ include file="page2.file" %>
 
 </body>
 </html>

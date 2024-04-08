@@ -246,7 +246,7 @@ public class ProductPictureDAO implements ProductPicture_interface {
 //		ProductPictureVO productPictureVO2 = new ProductPictureVO();
 //		productPictureVO2.setpPicNo(10);
 //		productPictureVO2.setpNo(42);
-//		 byte[] pic = getPictureByteArray("image.jpg");
+//		 byte[] pic = getPictureByteArray("src/main/webapp/images/image.jpg" );
 //	productPictureVO2.setpPic(pic);
 //		dao.update(productPictureVO2);
 
