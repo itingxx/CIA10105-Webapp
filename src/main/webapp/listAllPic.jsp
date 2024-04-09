@@ -78,6 +78,12 @@
                     <img src="data:image/png;base64,${Base64.getEncoder().encodeToString(picVO.pPic)}" alt="·Ó¤ù"  width="100" ;height="32">
                 </c:if>
             </td>
+            <td>
+                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/productPicture.do" style="margin-bottom: 0px;">
+                    <input type="submit" value="­×§ï">
+                    <input type="hidden" name="pPicNo"  value="${productPictureVO.pPicNo}">
+                    <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+            </td>
 
         </tr>
     </c:forEach>

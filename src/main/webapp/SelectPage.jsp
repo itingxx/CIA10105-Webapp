@@ -61,8 +61,9 @@
 
 <ul>
     <li><a href='listAllPic.jsp'>List</a> all ProductPicture </li>
-    <li><a href='productPicture.do?action=getAll'> List</a> all productPicture  <h4>(getFromSession).</h4> <br><br><br></li>
-
+    <li><a href='productPicture.do?action=getAll'> List</a> all productPicture  <h4>(getFromSession).</h4> </li>
+    <li><a href='addPic.jsp'>插入資料</a></li>
+    <br><br><br>
     <li>
         <FORM METHOD="post" ACTION="productPicture.do" >
             <b>輸入照片編號 (如7001):</b>
