@@ -68,7 +68,7 @@
     </ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="productPicture.do" name="form1">
+<FORM METHOD="post" ACTION="productPicture.do" name="form1" enctype="multipart/form-data>
     <table>
         <tr>
             <td>照片編號:<font color=red><b>*</b></font></td>
@@ -76,19 +76,24 @@
         </tr>
         <tr>
             <td>商品編號:</td>
-            <td><input type="TEXT" name="pNo" value="<%=productPictureVO.getpNo()%>" size="45"/></td>
+
+<td>
+<input type=" TEXT" name="pNo"   value="<%=productPictureVO.getpNo()%>" size="45"/>
+</td>
         </tr>
         <tr>
             <td>圖片:</td>
-            <td><input type="file" id="pPic" name="pPic" value="<%=productPictureVO.getpPic()%>>  " size="45"/>
-                <img src="data:image/png;base64,${Base64.getEncoder().encodeToString(productPictureVO.pPic)}" alt="照片"  width="100" ;height="32">
+            <td><input type="file" id="pPic" name="pPic" value="<%=productPictureVO.getpPic()%>  " size="45"/>
+
             </td>
         </tr>
 
         <jsp:useBean id="productPictureSvc" scope="page" class="dao.ProductPictureService" />
         <tr>
             <td>部門:<font color=red><b>*</b></font></td>
-            <td><select size="1" name="pPicNo">
+            <td>
+
+             <select size="1" name="pPicNo">
                 <c:forEach var="No" items="${productPictureSvc.all}">
                     <option value="${No.pPicNo}">${No.pPicNo}</option>
                 </c:forEach>

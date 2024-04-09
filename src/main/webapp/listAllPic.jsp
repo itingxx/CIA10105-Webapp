@@ -55,7 +55,7 @@
 <table id="table-1">
     <tr><td>
         <h3>所有員工資料 - listAllPic.jsp</h3>
-        <h4><a href="/SelectPage.jsp"><img src="image.jpg" width="100" height="32" border="0">回首頁</a></h4>
+        <h4><a href="SelectPage.jsp"><img src="image.jpg" width="100" height="32" border="0">回首頁</a></h4>
     </td></tr>
 </table>
 

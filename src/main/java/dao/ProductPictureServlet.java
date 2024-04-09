@@ -93,9 +93,10 @@ public class ProductPictureServlet extends HttpServlet{
 
             InputStream inputStream = req.getPart("pPic").getInputStream();
             byte[] pPic = null;
+            try {
             if(inputStream != null){
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                byte[] buffer = new byte[8192]; // 8KB 缓冲区大小，可以根据需要调整
+                byte[] buffer = new byte[4096];
                 int bytesRead;
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, bytesRead);
@@ -103,6 +104,8 @@ public class ProductPictureServlet extends HttpServlet{
                 pPic = outputStream.toByteArray();
                 inputStream.close();
             }
+            }catch (IOException e) {
+                System.err.println(e);}
         if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
             Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
@@ -136,10 +139,15 @@ public class ProductPictureServlet extends HttpServlet{
             ProductPictureService productPictureSvc = new ProductPictureService();
             productPictureVO = productPictureSvc.addProductPicture(pNo,pPic);
 
+
+            System.out.println("成功了 西西");
+
             /***************************3.新增完成,準備轉交(Send the Success view)***********/
             String url = "/listAllPic.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
             successView.forward(req, res);
+
+
         }
         }
 //            if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
