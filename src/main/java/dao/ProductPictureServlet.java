@@ -140,7 +140,6 @@ public class ProductPictureServlet extends HttpServlet{
             productPictureVO = productPictureSvc.addProductPicture(pNo,pPic);
 
 
-            System.out.println("成功了 西西");
 
             /***************************3.新增完成,準備轉交(Send the Success view)***********/
             String url = "/listAllPic.jsp";
