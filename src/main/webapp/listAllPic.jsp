@@ -5,8 +5,9 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    ProductPictureDAO dao = new ProductPictureDAO();
-    List<ProductPictureVO> list = dao.getAll();
+
+    ProductPictureService productPicture = new ProductPictureService();
+    List<ProductPictureVO> list = productPicture.getAll();
     pageContext.setAttribute("list",list);
 %>
 
@@ -67,24 +68,28 @@
 
     </tr>
 
-    <c:forEach var="picVO" items="${list}">
-
+    <c:forEach var="productPictureVO" items="${list}">
         <tr>
-            <td>${picVO.pPicNo}</td>
-            <td>${picVO.pNo}</td>
+            <td>${productPictureVO.pPicNo}</td>
+            <td>${productPictureVO.pNo}</td>
             <td>
-
-                <c:if test="${picVO.pPic ne null}">
-                    <img src="data:image/png;base64,${Base64.getEncoder().encodeToString(picVO.pPic)}" alt="照片"  width="100" ;height="32">
+                <c:if test="${productPictureVO.pPic ne null}">
+                    <img src="data:image/png;base64,${Base64.getEncoder().encodeToString(productPictureVO.pPic)}" alt="照片" width="100" height="100">
                 </c:if>
             </td>
             <td>
-                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/productPicture.do" style="margin-bottom: 0px;">
+                <form method="post" action="<%=request.getContextPath()%>/productPicture.do" name="form1">
                     <input type="submit" value="修改">
+                    <input type="hidden" name="pPicNo" value="${productPictureVO.pPicNo}">
+                    <input type="hidden" name="action" value="getOne_For_Update">
+                </form>
+            <td>
+                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/productPicture.do" style="margin-bottom: 0px;">
+                    <input type="submit" value="刪除">
                     <input type="hidden" name="pPicNo"  value="${productPictureVO.pPicNo}">
-                    <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+                    <input type="hidden" name="action" value="delete"></FORM>
             </td>
-
+            </td>
         </tr>
     </c:forEach>
 </table>

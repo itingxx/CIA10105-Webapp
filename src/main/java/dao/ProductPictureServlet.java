@@ -7,19 +7,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 @WebServlet("/ProductPictureServlet")
 @MultipartConfig
-public class ProductPictureServlet extends HttpServlet{
+public class ProductPictureServlet extends HttpServlet {
 
 
-        public void doGet(HttpServletRequest req, HttpServletResponse res)
-                throws ServletException, IOException {
-            doPost(req, res);
-        }
+    public void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        doPost(req, res);
+    }
 
-        public void doPost(HttpServletRequest req, HttpServletResponse res)
-                throws ServletException, IOException{
+    public void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
 
-            req.setCharacterEncoding("UTF-8");
-            String action = req.getParameter("action");
+        req.setCharacterEncoding("UTF-8");
+        String action = req.getParameter("action");
 //
 //            if ("getAll".equals(action)) {
 //                /***************************開始查詢資料 ****************************************/
@@ -36,76 +36,62 @@ public class ProductPictureServlet extends HttpServlet{
 //                return;
 //            }
 
-            if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
-                List<String> errorMsgs = new LinkedList<String>();
-                // Store this set in the request scope, in case we need to
-                // send the ErrorPage view.
-                req.setAttribute("errorMsgs", errorMsgs);
+        if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
 
-                /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-                String str = req.getParameter("pPicNo");
-                if (str == null || (str.trim()).length() == 0) {    //防呆
-                    errorMsgs.add("請輸入照片編號");
-                }
-                // Send the use back to the form, if there were errors
-                if (!errorMsgs.isEmpty()) {
-                    RequestDispatcher failureView = req
-                            .getRequestDispatcher("/SelectPage.jsp");
-                    failureView.forward(req, res);
-                    return;//程式中斷
-                }
-
-                Integer pPicNo = null;
-                try {
-                    pPicNo = Integer.valueOf(str);
-                } catch (Exception e) {
-                    errorMsgs.add("照片編號格式不正確");
-                }
-                // Send the use back to the form, if there were errors
-                if (!errorMsgs.isEmpty()) {
-                    RequestDispatcher failureView = req
-                            .getRequestDispatcher("/SelectPage.jsp");
-                    failureView.forward(req, res);
-                    return;//程式中斷
-                }
-/***************************2.開始查詢資料*****************************************/
-                ProductPictureDAO dao = new ProductPictureDAO();
-                ProductPictureVO productPictureVO = dao.findByPrimaryKey(Integer.valueOf(req.getParameter("pPicNo")));
-                if (productPictureVO == null) {
-                    errorMsgs.add("查無資料");
-                }
-                // Send the use back to the form, if there were errors
-                if (!errorMsgs.isEmpty()) {
-                    RequestDispatcher failureView = req
-                            .getRequestDispatcher("/SelectPage.jsp");
-                    failureView.forward(req, res);
-                    return;//程式中斷
-                }
-
-
-
-                /***************************3.查詢完成,準備轉交(Send the Success view)*************/
-                req.setAttribute("productPictureVO", productPictureVO); // 資料庫取出的empVO物件,存入req
-                String url = "listOnePic.jsp";
-                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-                successView.forward(req, res);
+            /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+            String str = req.getParameter("pPicNo");
+            if (str == null || (str.trim()).length() == 0) {    //防呆
+                errorMsgs.add("請輸入照片編號");
             }
 
-            InputStream inputStream = req.getPart("pPic").getInputStream();
-            byte[] pPic = null;
+            // Send the use back to the form, if there were errors
+            if (!errorMsgs.isEmpty()) {
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("/SelectPage.jsp");
+                failureView.forward(req, res);
+                return;//程式中斷
+            }
+
+            Integer pPicNo = null;
             try {
-            if(inputStream != null){
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-                pPic = outputStream.toByteArray();
-                inputStream.close();
+                pPicNo = Integer.valueOf(str);
+            } catch (Exception e) {
+                errorMsgs.add("照片編號格式不正確");
             }
-            }catch (IOException e) {
-                System.err.println(e);}
+            // Send the use back to the form, if there were errors
+            if (!errorMsgs.isEmpty()) {
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("/SelectPage.jsp");
+                failureView.forward(req, res);
+                return;//程式中斷
+            }
+/***************************2.開始查詢資料*****************************************/
+            ProductPictureDAO dao = new ProductPictureDAO();
+            ProductPictureVO productPictureVO = dao.findByPrimaryKey(Integer.valueOf(req.getParameter("pPicNo")));
+            if (productPictureVO == null) {
+                errorMsgs.add("查無資料");
+            }
+            // Send the use back to the form, if there were errors
+            if (!errorMsgs.isEmpty()) {
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("/SelectPage.jsp");
+                failureView.forward(req, res);
+                return;//程式中斷
+            }
+
+
+            /***************************3.查詢完成,準備轉交(Send the Success view)*************/
+            req.setAttribute("productPictureVO", productPictureVO); // 資料庫取出的empVO物件,存入req
+            String url = "listOnePic.jsp";
+            RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+            successView.forward(req, res);
+        }
+
+
         if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
             Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
@@ -117,12 +103,27 @@ public class ProductPictureServlet extends HttpServlet{
                 pNo = Integer.valueOf(req.getParameter("pNo").trim());
             } catch (NumberFormatException e) {
                 pNo = 0;
-                errorMsgs.put("pNo","請輸入照片編號");
+                errorMsgs.put("pNo", "請輸入照片編號");
             }
             if (pNo == null) {
                 errorMsgs.put("pNo", "商品編號請勿空白");
             }
-
+            InputStream inputStream = req.getPart("pPic").getInputStream();
+            byte[] pPic = null;
+            try {
+                if (inputStream != null) {
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    pPic = outputStream.toByteArray();
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                System.err.println(e);
+            }
             ProductPictureVO productPictureVO = new ProductPictureVO();
             productPictureVO.setpNo(pNo);
             productPictureVO.setpPic(pPic);
@@ -137,8 +138,7 @@ public class ProductPictureServlet extends HttpServlet{
                 return;
             }
             ProductPictureService productPictureSvc = new ProductPictureService();
-            productPictureVO = productPictureSvc.addProductPicture(pNo,pPic);
-
+            productPictureVO = productPictureSvc.addProductPicture(pNo, pPic);
 
 
             /***************************3.新增完成,準備轉交(Send the Success view)***********/
@@ -148,126 +148,114 @@ public class ProductPictureServlet extends HttpServlet{
 
 
         }
+
+        if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+
+            Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            /***************************1.接收請求參數****************************************/
+
+            Integer pPicNo = Integer.valueOf(req.getParameter("pPicNo"));
+            /***************************2.開始查詢資料****************************************/
+            ProductPictureService productPictureSvc = new ProductPictureService();
+            ProductPictureVO productPictureVO = productPictureSvc.getOneProductPicture(pPicNo);
+
+            /***************************3.查詢完成,準備轉交(Send the Success view)************/
+            req.setAttribute("productPictureVO", productPictureVO);         // 資料庫取出的empVO物件,存入req
+            String url = "/update_productpicture.jsp";
+            RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+            successView.forward(req, res);
         }
-//            if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
-//
-//                Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
-//                req.setAttribute("errorMsgs", errorMsgs);
-//
-//                /***************************1.接收請求參數****************************************/
-//                Integer pPicNo = Integer.valueOf(req.getParameter("pPicNo"));
-//
-//                /***************************2.開始查詢資料****************************************/
-//                ProductPictureService productPictureSvc = new ProductPictureService();
-//                ProductPictureVO productPictureVO = productPictureSvc.getOneProductPicture(pPicNo);
-//
-//                /***************************3.查詢完成,準備轉交(Send the Success view)************/
-//                String param = "?pPicNo="  +productPictureVO.getpPicNo()+
-//                        "&pNo="  +productPictureVO.getpNo()+
-//                        "&pPic="    +productPictureVO.getpPic();
-//                String url = "/update_emp_input.jsp"+param;
-//                RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
-//                successView.forward(req, res);
-//            }
-//
-//
-//            if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
-//
-//                Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
-//                req.setAttribute("errorMsgs", errorMsgs);
-//
-//                /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-//                Integer pPicNo = Integer.valueOf(req.getParameter("pPicNo").trim());
-//                if (pPicNo == null) {
-//                    errorMsgs.put("pPicNo","照片編號請勿空白");
-//                }
-//
-//                Integer pNo = Integer.valueOf(req.getParameter("pNo").trim());
-//                if (pNo == null) {
-//                    errorMsgs.put("pNo","商品編號請勿空白");
-//                }
-//
-//                String pPicParam = req.getParameter("pPic");
-//                byte[] pPic = null;
-//                if (pPicParam != null) {
-//                    pPic = Base64.getDecoder().decode(pPicParam);
-//                }
 
+        if ("update".equals(action)) { // 来自update_emp_input.jsp的请求
 
-//                String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-//                if (ename == null || ename.trim().length() == 0) {
-//                    errorMsgs.put("ename","員工姓名: 請勿空白");
-//                } else if(!ename.trim().matches(enameReg)) { //以下練習正則(規)表示式(regular-expression)
-//                    errorMsgs.put("ename","員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-//                }
+            Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+            req.setAttribute("errorMsgs", errorMsgs);
 
-//                String job = req.getParameter("job").trim();
-//                if (job == null || job.trim().length() == 0) {
-//                    errorMsgs.put("job","職位請勿空白");
-//                }
-//
-//                java.sql.Date hiredate = null;
-//                try {
-//                    hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
-//                } catch (IllegalArgumentException e) {
-//                    errorMsgs.put("hiredate","請輸入日期");
-//                }
-//
-//                Double sal = null;
-//                try {
-//                    sal = Double.valueOf(req.getParameter("sal").trim());
-//                } catch (NumberFormatException e) {
-//                    errorMsgs.put("sal","薪水請填數字");
-//                }
-//
-//                Double comm = null;
-//                try {
-//                    comm = Double.valueOf(req.getParameter("comm").trim());
-//                } catch (NumberFormatException e) {
-//                    errorMsgs.put("comm","獎金請填數字");
-//                }
-//
-//                Integer deptno = Integer.valueOf(req.getParameter("deptno").trim());
+            // 接收请求参数并进行错误处理
+            Integer pPicNo = null;
+            try {
+                pPicNo = Integer.valueOf(req.getParameter("pPicNo"));
+            } catch (NumberFormatException e) {
+                errorMsgs.put("pPicNo", "照片編號格式不正確");
+            }
 
-                // Send the use back to the form, if there were errors
-//                if (!errorMsgs.isEmpty()) {
-//                    RequestDispatcher failureView = req
-//                            .getRequestDispatcher("/emp/update_emp_input.jsp");
-//                    failureView.forward(req, res);
-//                    return; //程式中斷
-//                }
-//
-//                /***************************2.開始修改資料*****************************************/
-//                ProductPictureService productPictureSvc = new ProductPictureService();
-//                ProductPictureVO productPictureVO = productPictureSvc.updateProductPicture(pPicNo,pNo,pPic);
-//
-//                /***************************3.修改完成,準備轉交(Send the Success view)*************/
-//                req.setAttribute("productPictureVO", productPictureVO); // 資料庫update成功後,正確的的empVO物件,存入req
-//                String url = "/emp/listOneEmp.jsp";
-//                RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
-//                successView.forward(req, res);
-//            }
-//
+            String pNoStr = req.getParameter("pNo");
+            if (pNoStr == null || pNoStr.trim().length() == 0) {
+                errorMsgs.put("pNo", "請輸入商品編號");
+            }
 
+            Integer pNo = null;
+            try {
+                pNo = Integer.valueOf(pNoStr);
+            } catch (NumberFormatException e) {
+                errorMsgs.put("pNo", "商品編號格式不正確");
+            }
 
+            // 获取图片数据
+            InputStream inputStream = null;
+            byte[] pPic = null;
+            try {
+                Part filePart = req.getPart("pPic");
+                if (filePart != null) {
+                    inputStream = filePart.getInputStream();
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    pPic = outputStream.toByteArray();
+                }
+            } catch (IOException | ServletException e) {
+                System.err.println(e);
+            } finally {
+                if (inputStream != null) {
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        System.err.println(e);
+                    }
+                }
+            }
 
-//            if ("delete".equals(action)) { // 來自listAllEmp.jsp
-//
-//                Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
-//                req.setAttribute("errorMsgs", errorMsgs);
-//
-//                /***************************1.接收請求參數***************************************/
-//                Integer empno = Integer.valueOf(req.getParameter("empno"));
-//
-//                /***************************2.開始刪除資料***************************************/
-//                EmpService empSvc = new EmpService();
-//                empSvc.deleteEmp(empno);
-//
-//                /***************************3.刪除完成,準備轉交(Send the Success view)***********/
-//                String url = "/emp/listAllEmp.jsp";
-//                RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-//                successView.forward(req, res);
-//            }
-//        }
-//    }
+            // 如果存在错误消息，转发到更新页面并显示错误消息
+            if (!errorMsgs.isEmpty()) {
+                RequestDispatcher failureView = req.getRequestDispatcher("/update_productpicture.jsp");
+                failureView.forward(req, res);
+                return;
+            }
+
+            // 开始修改数据
+            ProductPictureService productPictureSvc = new ProductPictureService();
+            ProductPictureVO productPictureVO = productPictureSvc.updateProductPicture(pPicNo, pNo, pPic);
+
+            // 修改成功后转发到成功页面
+            req.setAttribute("productPictureVO", productPictureVO);
+            String url = "/listOnePic.jsp";
+            RequestDispatcher successView = req.getRequestDispatcher(url);
+            successView.forward(req, res);
         }
+
+
+        if ("delete".equals(action)) { // 來自listAllEmp.jsp
+
+            Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            /***************************1.接收請求參數***************************************/
+            Integer pPicNo = Integer.valueOf(req.getParameter("pPicNo"));
+
+            /***************************2.開始刪除資料***************************************/
+            ProductPictureService productPictureSvc = new ProductPictureService();
+            productPictureSvc.delete(pPicNo);
+
+            /***************************3.刪除完成,準備轉交(Send the Success view)***********/
+            String url = "/listAllPic.jsp";
+            RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+            successView.forward(req, res);
+        }
+    }
+}
+

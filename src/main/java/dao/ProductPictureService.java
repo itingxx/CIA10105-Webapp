@@ -7,7 +7,6 @@ public class ProductPictureService {
     private ProductPicture_interface dao;
 
     public ProductPictureService() {
-//		dao = new EmpJDBCDAO();
         dao = new ProductPictureDAO();
     }
 
@@ -42,18 +41,18 @@ public class ProductPictureService {
     }
 
     //預留給 Struts 2 用的
-    public void updateProductPicture(ProductPictureVO productPictureVO) {
-        dao.update(productPictureVO);
-    }
-
-//    public void deleteEmp(Integer empno) {
-//        dao.delete(empno);
+//    public void updateProductPicture(ProductPictureVO productPictureVO) {
+//        dao.update(productPictureVO);
 //    }
+
+
 
     public ProductPictureVO getOneProductPicture(Integer pPicNo) {
         return dao.findByPrimaryKey(pPicNo);
     }
-
+    public void delete(Integer pPicNo) {
+        dao.delete(pPicNo);
+    }
     public List<ProductPictureVO> getAll() {
         return dao.getAll();
     }

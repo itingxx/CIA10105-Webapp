@@ -1,18 +1,18 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="dao.*"%>
+<%@ page import="java.util.Base64" %>
 
-<% //¨£com.emp.controller.EmpServlet.java²Ä163¦æ¦s¤JreqªºempVOª«¥ó (¦¹¬°±q¸ê®Æ®w¨ú¥XªºempVO, ¤]¥i¥H¬O¿é¤J®æ¦¡¦³¿ù»~®ÉªºempVOª«¥ó)
-    ProductPictureVO productPictureVO = new ProductPictureVO();
-// ±N productPictureVO ª«¥ó³]¸m¨ì request Äİ©Ê¤¤
-    request.setAttribute("productPictureVO", productPictureVO);
-
+<%-- è·å– productPictureVO --%>
+<%
+    ProductPictureVO productPictureVO = (ProductPictureVO) request.getAttribute("productPictureVO");
+    byte[] pPic = productPictureVO.getpPic();
 %>
---<%=  productPictureVO==null %>--${productPictureVO.pPicNo }-- <!-- line 100 -->
+
 <html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>°Ó«~¸ê®Æ­×§ï - update_productpicture.jsp</title>
+    <title>å•†å“è³‡æ–™ä¿®æ”¹ - update_productpicture.jsp</title>
 
     <style>
         table#table-1 {
@@ -49,18 +49,8 @@
 </head>
 <body bgcolor='white'>
 
-<table id="table-1">
-    <tr><td>
-        <h3>°Ó«~¸ê®Æ­×§ï - update_productpicture.jsp</h3>
-        <h4><a href="SelectPage.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
-    </td></tr>
-</table>
-
-<h3>¸ê®Æ­×§ï:</h3>
-
-<%-- ¿ù»~ªí¦C --%>
 <c:if test="${not empty errorMsgs}">
-    <font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+    <font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
     <ul>
         <c:forEach var="message" items="${errorMsgs}">
             <li style="color:red">${message}</li>
@@ -68,125 +58,64 @@
     </ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="productPicture.do" name="form1" enctype="multipart/form-data>
+<table id="table-1">
+    <tr><td>
+        <h3>å•†å“è³‡æ–™ä¿®æ”¹ - update_productpicture.jsp</h3>
+        <h4><a href="SelectPage.jsp"><img src="images/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
+    </td></tr>
+</table>
+
+<h3>è³‡æ–™ä¿®æ”¹:</h3>
+
+<form method="post" action="productPicture.do" name="form1" enctype="multipart/form-data">
     <table>
         <tr>
-            <td>·Ó¤ù½s¸¹:<font color=red><b>*</b></font></td>
-            <td><%=productPictureVO.getpPicNo()%></td>
+            <td>ç…§ç‰‡ç·¨è™Ÿ:<font color=red><b>*</b></font></td>
+            <td>${productPictureVO.pPicNo}</td>
         </tr>
         <tr>
-            <td>°Ó«~½s¸¹:</td>
-
-<td>
-<input type=" TEXT" name="pNo"   value="<%=productPictureVO.getpNo()%>" size="45"/>
-</td>
+            <td>å•†å“ç·¨è™Ÿ:</td>
+            <td><input type="text" name="pNo" value="${productPictureVO.pNo}" size="45"/></td>
         </tr>
         <tr>
-            <td>¹Ï¤ù:</td>
-            <td><input type="file" id="pPic" name="pPic" value="<%=productPictureVO.getpPic()%>  " size="45"/>
+            <td>åœ–ç‰‡:</td>
+            <td>
+                <input type="file" id="pPic" name="pPic" >
 
+                <div id="preview"  width="32" ;height="32">
+                    <span class="text" >é è¦½åœ–</span>
+                    <img src="data:image/jpeg;base64, <%= new String(Base64.getEncoder().encode(pPic)) %>" width="200" height="200" />
+                </div>
             </td>
         </tr>
-
-        <jsp:useBean id="productPictureSvc" scope="page" class="dao.ProductPictureService" />
-        <tr>
-            <td>³¡ªù:<font color=red><b>*</b></font></td>
-            <td>
-
-             <select size="1" name="pPicNo">
-                <c:forEach var="No" items="${productPictureSvc.all}">
-                    <option value="${No.pPicNo}">${No.pPicNo}</option>
-                </c:forEach>
-            </select></td>
-        </tr>
-
     </table>
     <br>
     <input type="hidden" name="action" value="update">
-    <input type="hidden" name="pPicNo" value="<%=productPictureVO.getpPicNo()%>">
-    <input type="submit" value="°e¥X­×§ï"></FORM>
+    <input type="hidden" name="pPicNo" value="${productPictureVO.pPicNo}">
+    <input type="submit" value="é€å‡ºä¿®æ”¹">
+</form>
+
+<script>
+    function previewImg(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            var imgStr = '<img src="' + reader.result + '" class="preview_img">';
+            document.getElementById('preview').innerHTML = imgStr;
+        };
+    }
+
+    window.onload = function () {
+        document.getElementById('pPic').addEventListener('change', function (e) {
+            if (this.files.length > 0) {
+                previewImg(this.files[0]);
+            } else {
+                document.getElementById('previewImg').style.display = 'none';
+                document.getElementById('preview').innerHTML = '<span class="text">é è¦½åœ–</span>';
+            }
+        });
+    };
+</script>
+
 </body>
-
-
-
-<!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
-
-<%--<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />--%>
-<%--<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>--%>
-<%--<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>--%>
-
-<%--<style>--%>
-<%--    .xdsoft_datetimepicker .xdsoft_datepicker {--%>
-<%--        width:  300px;   /* width:  300px; */--%>
-<%--    }--%>
-<%--    .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {--%>
-<%--        height: 151px;   /* height:  151px; */--%>
-<%--    }--%>
-<%--</style>--%>
-
-<%--<script>--%>
-<%--    $.datetimepicker.setLocale('zh');--%>
-<%--    $('#f_date1').datetimepicker({--%>
-<%--        theme: '',              //theme: 'dark',--%>
-<%--        timepicker:false,       //timepicker:true,--%>
-<%--        step: 1,                //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)--%>
-<%--        format:'Y-m-d',         //format:'Y-m-d H:i:s',--%>
-<%--        value: '<%=empVO.getHiredate()%>', // value:   new Date(),--%>
-<%--        //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t--%>
-<%--        //startDate:	            '2017/07/10',  // °_©l¤é--%>
-<%--        //minDate:               '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e--%>
-<%--        //maxDate:               '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á--%>
-<%--    });--%>
-
-
-
-<%--    // ----------------------------------------------------------¥H¤U¥Î¨Ó±Æ©wµLªk¿ï¾Üªº¤é´Á-------------------------------------------------------------%>
-
-<%--    //      1.¥H¤U¬°¬Y¤@¤Ñ¤§«eªº¤é´ÁµLªk¿ï¾Ü--%>
-<%--    //      var somedate1 = new Date('2017-06-15');--%>
-<%--    //      $('#f_date1').datetimepicker({--%>
-<%--    //          beforeShowDay: function(date) {--%>
-<%--    //        	  if (  date.getYear() <  somedate1.getYear() ||--%>
-<%--    //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) ||--%>
-<%--    //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())--%>
-<%--    //              ) {--%>
-<%--    //                   return [false, ""]--%>
-<%--    //              }--%>
-<%--    //              return [true, ""];--%>
-<%--    //      }});--%>
-
-
-<%--    //      2.¥H¤U¬°¬Y¤@¤Ñ¤§«áªº¤é´ÁµLªk¿ï¾Ü--%>
-<%--    //      var somedate2 = new Date('2017-06-15');--%>
-<%--    //      $('#f_date1').datetimepicker({--%>
-<%--    //          beforeShowDay: function(date) {--%>
-<%--    //        	  if (  date.getYear() >  somedate2.getYear() ||--%>
-<%--    //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) ||--%>
-<%--    //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())--%>
-<%--    //              ) {--%>
-<%--    //                   return [false, ""]--%>
-<%--    //              }--%>
-<%--    //              return [true, ""];--%>
-<%--    //      }});--%>
-
-
-<%--    //      3.¥H¤U¬°¨â­Ó¤é´Á¤§¥~ªº¤é´ÁµLªk¿ï¾Ü (¤]¥i«ö»İ­n´«¦¨¨ä¥L¤é´Á)--%>
-<%--    //      var somedate1 = new Date('2017-06-15');--%>
-<%--    //      var somedate2 = new Date('2017-06-25');--%>
-<%--    //      $('#f_date1').datetimepicker({--%>
-<%--    //          beforeShowDay: function(date) {--%>
-<%--    //        	  if (  date.getYear() <  somedate1.getYear() ||--%>
-<%--    //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) ||--%>
-<%--    //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())--%>
-<%--    //		             ||--%>
-<%--    //		            date.getYear() >  somedate2.getYear() ||--%>
-<%--    //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) ||--%>
-<%--    //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())--%>
-<%--    //              ) {--%>
-<%--    //                   return [false, ""]--%>
-<%--    //              }--%>
-<%--    //              return [true, ""];--%>
-<%--    //      }});--%>
-
-<%--</script>--%>
 </html>

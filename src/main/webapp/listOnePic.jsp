@@ -66,9 +66,8 @@
     <tr>
         <td><%=productPictureVO.getpPicNo()%></td>
         <td><%=productPictureVO.getpNo()%></td>
-        <% String encodedImage = Base64.getEncoder().encodeToString(productPictureVO.getpPic());
-        request.setAttribute("encodedImage", encodedImage);%>
-        <td><img src="data:image/png;base64,${encodedImage}" alt="照片" width="100" height="100"></td>
+        <td> <img src="data:image/png;base64,${Base64.getEncoder().encodeToString(productPictureVO.pPic)}" alt="照片" width="100" height="100"></td>
+
 
     </tr>
 </table>
