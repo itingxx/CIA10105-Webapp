@@ -53,15 +53,16 @@
     <font style="color:red">請修正以下錯誤:</font>
     <ul>
         <c:forEach var="message" items="${errorMsgs}">
-            <li style="color:red">${message}</li>
+            <li style="color:red">${message.value}</li>
         </c:forEach>
     </ul>
 </c:if>
 
+
 <table id="table-1">
     <tr><td>
         <h3>商品資料修改 - update_productpicture.jsp</h3>
-        <h4><a href="SelectPage.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+        <h4><a href="SelectPage.jsp"><img src="images/cat.png" width="100" height="32" border="0">回首頁</a></h4>
     </td></tr>
 </table>
 

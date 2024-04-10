@@ -19,5 +19,5 @@
 		<url-pattern>/productPicture.do</url-pattern>
 	</servlet-mapping>
 
-	
+
 </web-app>

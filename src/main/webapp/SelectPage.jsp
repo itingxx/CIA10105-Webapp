@@ -61,7 +61,7 @@
 
 <ul>
     <li><a href='listAllPic.jsp'>List</a> all ProductPicture </li>
-    <li><a href='productPicture.do?action=getAll'> List</a> all productPicture  <h4>(getFromSession).</h4> </li>
+<%--    <li><a href='productPicture.do?action=getAll'> List</a> all productPicture  <h4>(getFromSession).</h4> </li>--%>
     <li><a href='addPic.jsp'>插入資料</a></li>
     <br><br><br>
     <li>
@@ -98,18 +98,7 @@
         </FORM>
     </li>
 
-<%--    <li>--%>
-<%--        <FORM METHOD="post" ACTION="productPictureVO.do" >--%>
-<%--            <b>選擇員工姓名:</b>--%>
-<%--            <select size="1" name="empno">--%>
-<%--                <c:forEach var="empVO" items="${dao.all}" >--%>
-<%--                <option value="${empVO.empno}">${empVO.ename}--%>
-<%--                    </c:forEach>--%>
-<%--            </select>--%>
-<%--            <input type="hidden" name="action" value="getOne_For_Display">--%>
-<%--            <input type="submit" value="送出">--%>
-<%--        </FORM>--%>
-<%--    </li>--%>
+
 </ul>
 
 <script>

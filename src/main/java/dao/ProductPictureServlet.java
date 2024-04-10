@@ -173,7 +173,7 @@ public class ProductPictureServlet extends HttpServlet {
             Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
             req.setAttribute("errorMsgs", errorMsgs);
 
-            // 接收请求参数并进行错误处理
+            // 接受請求參數並進行錯誤處理
             Integer pPicNo = null;
             try {
                 pPicNo = Integer.valueOf(req.getParameter("pPicNo"));
@@ -193,7 +193,7 @@ public class ProductPictureServlet extends HttpServlet {
                 errorMsgs.put("pNo", "商品編號格式不正確");
             }
 
-            // 获取图片数据
+            // 獲取圖片數據
             InputStream inputStream = null;
             byte[] pPic = null;
             try {
@@ -209,25 +209,27 @@ public class ProductPictureServlet extends HttpServlet {
                     pPic = outputStream.toByteArray();
                 }
             } catch (IOException | ServletException e) {
-                System.err.println(e);
+                errorMsgs.put("fileUpload", "文件上传失败：" + e.getMessage());
+                e.printStackTrace(); // 将异常打印出来，方便调试
             } finally {
                 if (inputStream != null) {
                     try {
                         inputStream.close();
                     } catch (IOException e) {
-                        System.err.println(e);
+                        errorMsgs.put("fileUpload", "文件上传失败：" + e.getMessage());
+                        e.printStackTrace(); // 将异常打印出来，方便调试
                     }
                 }
             }
 
-            // 如果存在错误消息，转发到更新页面并显示错误消息
+            // 錯誤處理
             if (!errorMsgs.isEmpty()) {
                 RequestDispatcher failureView = req.getRequestDispatcher("/update_productpicture.jsp");
                 failureView.forward(req, res);
                 return;
             }
 
-            // 开始修改数据
+            // 修改數據
             ProductPictureService productPictureSvc = new ProductPictureService();
             ProductPictureVO productPictureVO = productPictureSvc.updateProductPicture(pPicNo, pNo, pPic);
 
@@ -237,6 +239,7 @@ public class ProductPictureServlet extends HttpServlet {
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
+
 
 
         if ("delete".equals(action)) { // 來自listAllEmp.jsp
