@@ -5,7 +5,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-@WebServlet("/ProductPictureServlet")
+
 @MultipartConfig
 public class ProductPictureServlet extends HttpServlet {
 
@@ -119,7 +119,7 @@ public class ProductPictureServlet extends HttpServlet {
                 errorMsgs.put("pNo", "請輸入商品編號");
             }
             if (pNo<=0) {
-                errorMsgs.put("pNo", "商品編號請勿小於0");
+                errorMsgs.put("pNo", "商品編號格式錯誤");
             }
 
             if (!errorMsgs.isEmpty()) {
@@ -232,8 +232,8 @@ public class ProductPictureServlet extends HttpServlet {
                 pNo = 0;
                 errorMsgs.put("pNo", "請輸入商品編號");
             }
-            if (pNo<=0) {
-                errorMsgs.put("pNo", "商品編號請勿小於0");
+            if (pNo<= 0) {
+                errorMsgs.put("pNo", "商品編號格式錯誤");
             }
 
 

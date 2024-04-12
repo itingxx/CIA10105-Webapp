@@ -50,11 +50,10 @@
 </head>
 <body bgcolor='white'>
 
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">
     <tr><td>
         <h3>員工資料 - listOnePic.jsp</h3>
-        <h4><a href="SelectPage.jsp"><img src="images/cat.png" width="100" height="32" border="0">回首頁</a></h4>
+        <h4><a href="SelectPage.jsp"><img src="images/cat.png" width="100" height="100" border="0">回首頁</a></h4>
     </td></tr>
 </table>
 
@@ -63,7 +62,7 @@
         <th>照片編號</th>
         <th>商品編號</th>
         <th>照片</th>
-    </tr>
+        <th colspan="2">操作</th>
     <tr>
         <td><%=productPictureVO.getpPicNo()%></td>
         <td><%=productPictureVO.getpNo()%></td>

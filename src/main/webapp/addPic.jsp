@@ -114,7 +114,7 @@
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function () {
-            var imgStr = '<img src="' + reader.result + '" class="preview_img">';
+            var imgStr = '<img src="' + reader.result + '" class="preview_img" style="width:200; height: 200;">';
             document.getElementById('preview').innerHTML = imgStr;
         };
     }
@@ -124,7 +124,7 @@
             if (this.files.length > 0) {
                 previewImg(this.files[0]);
             } else {
-                document.getElementById('preview').innerHTML = '<span class="text">¹wÄý¹Ï</span>';
+                document.getElementById('preview').innerHTML = '<span class="text" ></span>';
             }
         });
     };

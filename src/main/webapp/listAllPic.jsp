@@ -1,13 +1,12 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="dao.*" %>
 <%@ page import="ProductPicture.ProductPictureService" %>
 <%@ page import="ProductPicture.ProductPictureVO" %>
-<%-- ¦¹­¶½m²ß±Ä¥Î EL ªº¼gªk¨ú­È --%>
+<%-- æ­¤é ç·´ç¿’æ¡ç”¨ EL çš„å¯«æ³•å–å€¼ --%>
 
 <%
-
     ProductPictureService productPicture = new ProductPictureService();
     List<ProductPictureVO> list = productPicture.getAll();
     pageContext.setAttribute("list",list);
@@ -16,7 +15,7 @@
 
 <html>
 <head>
-    <title>©Ò¦³·Ó¤ù¸ê®Æ - listAllpic.jsp</title>
+    <title>æ‰€æœ‰ç…§ç‰‡è³‡æ–™ - listAllpic.jsp</title>
 
     <style>
         table#table-1 {
@@ -54,37 +53,37 @@
 </head>
 <body bgcolor='white'>
 
-<h4>¦¹­¶½m²ßw..±Ä¥Î EL ªº¼gªk¨ú­È:</h4>
+<h4>æ­¤é ç·´ç¿’w..æ¡ç”¨ EL çš„å¯«æ³•å–å€¼:</h4>
 <table id="table-1">
     <tr><td>
-        <h3>©Ò¦³­û¤u¸ê®Æ - listAllPic.jsp</h3>
-        <h4><a href="SelectPage.jsp"><img src="images/cat.png" width="100" height="32" border="0">¦^­º­¶</a></h4>
+        <h3>æ‰€æœ‰å“¡å·¥è³‡æ–™ - listAllPic.jsp</h3>
+        <h4><a href="SelectPage.jsp"><img src="images/cat.png" width="100" height="100" border="0">å›é¦–é </a></h4>
     </td></tr>
 </table>
 
 <table>
     <tr>
-        <th>·Ó¤ù½s¸¹</th>
-        <th>°Ó«~½s¸¹</th>
-        <th>·Ó¤ù</th>
-
+        <th>ç…§ç‰‡ç·¨è™Ÿ</th>
+        <th>å•†å“ç·¨è™Ÿ</th>
+        <th>ç…§ç‰‡</th>
+        <th colspan="2">æ“ä½œ</th>
     </tr>
-
-    <c:forEach var="productPictureVO" items="${list}">
+    <%@ include file="page1" %>
+    <c:forEach var="productPictureVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
         <tr>
             <td>${productPictureVO.pPicNo}</td>
             <td>${productPictureVO.pNo}</td>
-            <td><img src="data:image/png;base64,${Base64.getEncoder().encodeToString(productPictureVO.pPic)}" alt="·Ó¤ù" width="100" height="100">
+            <td><img src="data:image/png;base64,${Base64.getEncoder().encodeToString(productPictureVO.pPic)}" alt="ç…§ç‰‡" width="100" height="100">
             </td>
             <td>
                 <form method="post" action="<%=request.getContextPath()%>/productPicture.do" name="form1">
-                    <input type="submit" value="­×§ï">
+                    <input type="submit" value="ä¿®æ”¹">
                     <input type="hidden" name="pPicNo" value="${productPictureVO.pPicNo}">
                     <input type="hidden" name="action" value="getOne_For_Update">
                 </form>
             <td>
                 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/productPicture.do" style="margin-bottom: 0px;">
-                    <input type="submit" value="§R°£">
+                    <input type="submit" value="åˆªé™¤">
                     <input type="hidden" name="pPicNo"  value="${productPictureVO.pPicNo}">
                     <input type="hidden" name="action" value="delete"></FORM>
             </td>
@@ -92,7 +91,7 @@
         </tr>
     </c:forEach>
 </table>
-
+<%@ include file="page2" %>
 
 </body>
 </html>
