@@ -165,7 +165,7 @@ public class ProductPictureServlet extends HttpServlet {
             }
 
 
-
+            req.setAttribute("productPictureVO", productPictureVO);
             /***************************3.新增完成,準備轉交(Send the Success view)***********/
             String url = "/listAllPic.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
