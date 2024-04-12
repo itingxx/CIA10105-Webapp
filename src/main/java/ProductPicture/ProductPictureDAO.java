@@ -1,4 +1,4 @@
-package dao;
+package ProductPicture;
 
 import java.io.*;
 import java.sql.*;
@@ -88,8 +88,7 @@ public class ProductPictureDAO implements ProductPicture_interface {
 			pstmt.setInt(1, productPictureVO.getpNo());
 			pstmt.setBytes(2, productPictureVO.getpPic());
 
-			pstmt.executeUpdate("set auto_increment_offset=10;");
-			pstmt.executeUpdate("set auto_increment_increment=3;");
+
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -180,7 +179,7 @@ public class ProductPictureDAO implements ProductPicture_interface {
 
 			rs = pstmt.executeQuery();
 
-			while (rs.next()) {
+			if (rs.next()) {
 				// deptVO 也稱為 Domain objects
 				productPictureVO = new ProductPictureVO();
 				productPictureVO.setpPicNo(rs.getInt("pPicNo"));

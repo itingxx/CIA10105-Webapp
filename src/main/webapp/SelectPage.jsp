@@ -1,3 +1,4 @@
+<%@ page import="ProductPicture.ProductPictureDAO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -83,14 +84,14 @@
     </li>
 
     <%--   <jsp:useBean id="dao" scope="page" class="com.emp.model.EmpDAO" /> --%>
-    <% dao.ProductPictureDAO dao0 =new dao.ProductPictureDAO();%><%pageContext.setAttribute("dao",dao0); %>
+    <% ProductPictureDAO dao0 =new ProductPictureDAO();%><%pageContext.setAttribute("dao",dao0); %>
     <!-- pageContext 204.337 -->
     <li>
         <FORM METHOD="post" ACTION="productPicture.do" >
             <b>選擇照片編號:</b>
             <select size="1" name="pPicNo">
-                <c:forEach var="productPictureVO" items="${dao.all}" >   <!-- pageScope :p236 -->
-                <option value="${productPictureVO.pPicNo}">${productPictureVO.pPicNo}
+                <c:forEach var="productPictureService" items="${dao.all}" >   <!-- pageScope :p236 -->
+                <option value="${productPictureService.pPicNo}">${productPictureService.pPicNo}
                     </c:forEach>
             </select>
             <input type="hidden" name="action" value="getOne_For_Display">

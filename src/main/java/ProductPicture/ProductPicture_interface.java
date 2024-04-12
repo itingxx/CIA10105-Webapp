@@ -1,4 +1,4 @@
-package dao;
+package ProductPicture;
 
 import java.util.List;
 

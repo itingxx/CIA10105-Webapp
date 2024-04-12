@@ -12,7 +12,7 @@
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>ProductPictureServlet</servlet-name>
-		<servlet-class>dao.ProductPictureServlet</servlet-class>
+		<servlet-class>ProductPicture.ProductPictureServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ProductPictureServlet</servlet-name>

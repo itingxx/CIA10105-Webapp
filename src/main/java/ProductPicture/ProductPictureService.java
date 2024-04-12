@@ -1,6 +1,5 @@
-package dao;
+package ProductPicture;
 import java.util.List;
-import java.util.Set;
 
 public class ProductPictureService {
 
@@ -10,7 +9,9 @@ public class ProductPictureService {
         dao = new ProductPictureDAO();
     }
 
-    public ProductPictureVO addProductPicture(Integer pNo,byte[] pPic) {
+
+
+        public ProductPictureVO addProductPicture(Integer pNo,byte[] pPic) {
 
         ProductPictureVO productPictureVO = new ProductPictureVO();
 
@@ -24,8 +25,8 @@ public class ProductPictureService {
     }
 
     //預留給 Struts 2 或 Spring MVC 用
-    public void addProductPicture(ProductPictureVO productPictureVO) {
-        dao.insert(productPictureVO);
+    public ProductPictureVO addPicture(ProductPictureVO productPictureVO) {
+        return productPictureVO;
     }
 
     public ProductPictureVO updateProductPicture(Integer pPicNo,Integer pNo,byte[] pPic) {

@@ -1,4 +1,4 @@
-package dao;
+package ProductPicture;
 
 public class ProductPictureVO implements java.io.Serializable {
 	

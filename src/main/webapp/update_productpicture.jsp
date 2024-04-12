@@ -2,11 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="dao.*"%>
 <%@ page import="java.util.Base64" %>
+<%@ page import="ProductPicture.ProductPictureVO" %>
+<%@ page import="ProductPicture.ProductPictureService" %>
 
-<%-- 获取 productPictureVO --%>
+<%-- productPictureVO --%>
 <%
-    ProductPictureVO productPictureVO = (ProductPictureVO) request.getAttribute("productPictureVO");
-    byte[] pPic = productPictureVO.getpPic();
+    ProductPictureService productPictureService = new ProductPictureService();
+    ProductPictureVO productPictureVO = null;
+    byte[] pPic = null;
+
+    if (request.getParameter("pPicNo") != null) {
+        // 如果请求参数中包含 pPicNo，则使用请求参数
+        productPictureVO = productPictureService.getOneProductPicture(Integer.parseInt(request.getParameter("pPicNo")));
+        pPic = productPictureVO.getpPic();
+    } else {
+        // 如果请求参数中不包含 pPicNo，则尝试使用请求属性
+        Object pPicNoAttribute = request.getAttribute("pPicNo");
+        if (pPicNoAttribute != null) {
+            productPictureVO = productPictureService.getOneProductPicture((Integer) pPicNoAttribute);
+            pPic = productPictureVO.getpPic();
+        }
+    }
 %>
 
 <html>

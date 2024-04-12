@@ -1,4 +1,4 @@
-package dao;
+package ProductPicture;
 import java.io.*;
 import java.util.*;
 import javax.servlet.*;
@@ -20,7 +20,7 @@ public class ProductPictureServlet extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
-//
+
 //            if ("getAll".equals(action)) {
 //                /***************************開始查詢資料 ****************************************/
 //                ProductPictureDAO dao = new ProductPictureDAO();
@@ -56,9 +56,9 @@ public class ProductPictureServlet extends HttpServlet {
                 return;//程式中斷
             }
 
-            Integer pPicNo = null;
+
             try {
-                pPicNo = Integer.valueOf(str);
+                Integer pPicNo = Integer.valueOf(str);
             } catch (Exception e) {
                 errorMsgs.add("照片編號格式不正確");
             }
@@ -70,8 +70,8 @@ public class ProductPictureServlet extends HttpServlet {
                 return;//程式中斷
             }
 /***************************2.開始查詢資料*****************************************/
-            ProductPictureDAO dao = new ProductPictureDAO();
-            ProductPictureVO productPictureVO = dao.findByPrimaryKey(Integer.valueOf(req.getParameter("pPicNo")));
+            ProductPictureService dao = new ProductPictureService();
+            ProductPictureVO productPictureVO = dao.getOneProductPicture(Integer.valueOf(req.getParameter("pPicNo")));
             if (productPictureVO == null) {
                 errorMsgs.add("查無資料");
             }
@@ -85,7 +85,7 @@ public class ProductPictureServlet extends HttpServlet {
 
 
             /***************************3.查詢完成,準備轉交(Send the Success view)*************/
-            req.setAttribute("productPictureVO", productPictureVO); // 資料庫取出的empVO物件,存入req
+            req.setAttribute("productPictureVO", productPictureVO);
             String url = "listOnePic.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
             successView.forward(req, res);
@@ -97,6 +97,19 @@ public class ProductPictureServlet extends HttpServlet {
             Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
             req.setAttribute("errorMsgs", errorMsgs);
 
+
+            String str = req.getParameter("pNo");
+            if (str == null || (str.trim()).length() == 0) {    //防呆
+                errorMsgs.put("pPic","請輸入照片編號");
+            }
+
+            // Send the use back to the form, if there were errors
+            if (!errorMsgs.isEmpty()) {
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("/addPic.jsp");
+                failureView.forward(req, res);
+                return;//程式中斷
+            }
             /***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
             Integer pNo = null;
             try {
@@ -105,7 +118,7 @@ public class ProductPictureServlet extends HttpServlet {
                 pNo = 0;
                 errorMsgs.put("pNo", "請輸入照片編號");
             }
-            if (pNo == null) {
+            if (str == null || (str.trim()).length() == 0) {
                 errorMsgs.put("pNo", "商品編號請勿空白");
             }
             InputStream inputStream = req.getPart("pPic").getInputStream();
@@ -124,9 +137,22 @@ public class ProductPictureServlet extends HttpServlet {
             } catch (IOException e) {
                 System.err.println(e);
             }
-            ProductPictureVO productPictureVO = new ProductPictureVO();
-            productPictureVO.setpNo(pNo);
-            productPictureVO.setpPic(pPic);
+
+            if (pPic == null || pPic.length == 0 ) {    //防呆
+                errorMsgs.put("pPic","請傳照片");
+            }
+
+            // Send the use back to the form, if there were errors
+            if (!errorMsgs.isEmpty()) {
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("/addPic.jsp");
+                failureView.forward(req, res);
+                return;//程式中斷
+            }
+            ProductPictureService productPictureService = new ProductPictureService();
+            ProductPictureVO productPictureVO=productPictureService.addProductPicture(pNo,pPic);
+
+
 
 
             // Send the use back to the form, if there were errors
@@ -137,8 +163,7 @@ public class ProductPictureServlet extends HttpServlet {
                 failureView.forward(req, res);
                 return;
             }
-            ProductPictureService productPictureSvc = new ProductPictureService();
-            productPictureVO = productPictureSvc.addProductPicture(pNo, pPic);
+
 
 
             /***************************3.新增完成,準備轉交(Send the Success view)***********/
@@ -174,24 +199,16 @@ public class ProductPictureServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             // 接受請求參數並進行錯誤處理
-            Integer pPicNo = null;
-            try {
-                pPicNo = Integer.valueOf(req.getParameter("pPicNo"));
-            } catch (NumberFormatException e) {
-                errorMsgs.put("pPicNo", "照片編號格式不正確");
-            }
+            Integer pPicNo = Integer.valueOf(req.getParameter("pPicNo").trim());
 
-            String pNoStr = req.getParameter("pNo");
-            if (pNoStr == null || pNoStr.trim().length() == 0) {
+            String pNo = req.getParameter("pNo");
+            if (pNo == null || pNo.trim().isEmpty()) {    // 防呆
                 errorMsgs.put("pNo", "請輸入商品編號");
             }
 
-            Integer pNo = null;
-            try {
-                pNo = Integer.valueOf(pNoStr);
-            } catch (NumberFormatException e) {
-                errorMsgs.put("pNo", "商品編號格式不正確");
-            }
+            // 将原始参数放回请求属性中
+            req.setAttribute("pPicNo", pPicNo);
+            req.setAttribute("pNo", pNo);
 
             // 獲取圖片數據
             InputStream inputStream = null;
@@ -207,31 +224,37 @@ public class ProductPictureServlet extends HttpServlet {
                         outputStream.write(buffer, 0, bytesRead);
                     }
                     pPic = outputStream.toByteArray();
+                } else {
+                    errorMsgs.put("pPic", "請傳照片");
                 }
             } catch (IOException | ServletException e) {
-                errorMsgs.put("fileUpload", "文件上传失败：" + e.getMessage());
+                errorMsgs.put("fileUpload", "文件上傳失敗：" + e.getMessage());
                 e.printStackTrace(); // 将异常打印出来，方便调试
             } finally {
                 if (inputStream != null) {
                     try {
                         inputStream.close();
                     } catch (IOException e) {
-                        errorMsgs.put("fileUpload", "文件上传失败：" + e.getMessage());
-                        e.printStackTrace(); // 将异常打印出来，方便调试
+                        errorMsgs.put("fileUpload", "文件上傳失敗：" + e.getMessage());
+                        e.printStackTrace();
                     }
                 }
             }
 
-            // 錯誤處理
+            // 如果有错误，不执行任何跳转，而是在当前页面显示错误消息
             if (!errorMsgs.isEmpty()) {
-                RequestDispatcher failureView = req.getRequestDispatcher("/update_productpicture.jsp");
-                failureView.forward(req, res);
+                // 设置其他可能需要的属性
+                // ...
+req.setAttribute("pPicNo",pPicNo);
+                // 将控制流返回到原始页面
+                RequestDispatcher view = req.getRequestDispatcher("/update_productpicture.jsp");
+                view.forward(req, res);
                 return;
             }
 
             // 修改數據
             ProductPictureService productPictureSvc = new ProductPictureService();
-            ProductPictureVO productPictureVO = productPictureSvc.updateProductPicture(pPicNo, pNo, pPic);
+            ProductPictureVO productPictureVO = productPictureSvc.updateProductPicture(pPicNo, Integer.valueOf(pNo), pPic);
 
             // 修改成功后转发到成功页面
             req.setAttribute("productPictureVO", productPictureVO);
