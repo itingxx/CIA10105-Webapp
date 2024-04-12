@@ -193,19 +193,14 @@ public class ProductPictureServlet extends HttpServlet {
             successView.forward(req, res);
         }
 
-        if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
+        if ("update".equals(action)) { // 來自update_emp_inputproductpicture.jsp的請求
 
             Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
             req.setAttribute("errorMsgs", errorMsgs);
 
             // 接受請求參數並進行錯誤處理
-            Integer pPicNo = null;
-            try {
-                pPicNo = Integer.valueOf(req.getParameter("pPicNo").trim());
-            } catch (NumberFormatException e) {
-                pPicNo = 0;
-                errorMsgs.put("pPicNo", "請輸入有效的商品編號");
-            }
+            Integer pPicNo= Integer.valueOf(req.getParameter("pPicNo").trim());
+
 
             String str = req.getParameter("pNo");
             if (str == null || (str.trim()).length() == 0) {    //防呆
@@ -228,11 +223,9 @@ public class ProductPictureServlet extends HttpServlet {
                 pNo = Integer.valueOf(req.getParameter("pNo").trim());
             } catch (NumberFormatException e) {
                 pNo = 0;
-                errorMsgs.put("pNo", "請輸入有效的商品編號");
+                errorMsgs.put("pNo", "請輸入商品編號");
             }
-            if (pNo == 0) {
-                errorMsgs.put("pNo", "商品編號不能為0");
-            }
+
 
             // Send the user back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
@@ -245,12 +238,10 @@ public class ProductPictureServlet extends HttpServlet {
             }
 
             // 獲取圖片數據
-            InputStream inputStream = null;
+            InputStream inputStream = req.getPart("pPic").getInputStream();
             byte[] pPic = null;
             try {
-                Part filePart = req.getPart("pPic");
-                if (filePart != null) {
-                    inputStream = filePart.getInputStream();
+                if (inputStream != null) {
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                     byte[] buffer = new byte[4096];
                     int bytesRead;
@@ -258,21 +249,14 @@ public class ProductPictureServlet extends HttpServlet {
                         outputStream.write(buffer, 0, bytesRead);
                     }
                     pPic = outputStream.toByteArray();
-                } else {
-                    errorMsgs.put("pPic", "請傳照片");
+                    inputStream.close();
                 }
-            } catch (IOException | ServletException e) {
-                errorMsgs.put("fileUpload", "文件上傳失敗：" + e.getMessage());
-                e.printStackTrace(); // 將異常打印出來，方便調試
-            } finally {
-                if (inputStream != null) {
-                    try {
-                        inputStream.close();
-                    } catch (IOException e) {
-                        errorMsgs.put("fileUpload", "文件上傳失敗：" + e.getMessage());
-                        e.printStackTrace();
-                    }
-                }
+            } catch (IOException e) {
+                System.err.println(e);
+            }
+
+            if (pPic == null || pPic.length == 0 ) {    //防呆
+                errorMsgs.put("pPic","請傳照片");
             }
 
             // Send the user back to the form, if there were errors
