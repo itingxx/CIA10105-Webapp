@@ -69,7 +69,18 @@
         <td><%=productPictureVO.getpNo()%></td>
         <td> <img src="data:image/png;base64,${Base64.getEncoder().encodeToString(productPictureVO.pPic)}" alt="照片" width="100" height="100"></td>
 
-
+        <td>
+            <form method="post" action="<%=request.getContextPath()%>/productPicture.do" name="form1">
+                <input type="submit" value="修改">
+                <input type="hidden" name="pPicNo" value="${productPictureVO.pPicNo}">
+                <input type="hidden" name="action" value="getOne_For_Update">
+            </form>
+        <td>
+            <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/productPicture.do" style="margin-bottom: 0px;">
+                <input type="submit" value="刪除">
+                <input type="hidden" name="pPicNo"  value="${productPictureVO.pPicNo}">
+                <input type="hidden" name="action" value="delete"></FORM>
+        </td>
     </tr>
 </table>
 

@@ -118,8 +118,15 @@ public class ProductPictureServlet extends HttpServlet {
                 pNo = 0;
                 errorMsgs.put("pNo", "請輸入商品編號");
             }
-            if (str == null || (str.trim()).length() == 0) {
-                errorMsgs.put("pNo", "商品編號請勿空白");
+            if (pNo<=0) {
+                errorMsgs.put("pNo", "商品編號請勿小於0");
+            }
+
+            if (!errorMsgs.isEmpty()) {
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("/addPic.jsp");
+                failureView.forward(req, res);
+                return;//程式中斷
             }
             InputStream inputStream = req.getPart("pPic").getInputStream();
             byte[] pPic = null;
@@ -224,6 +231,9 @@ public class ProductPictureServlet extends HttpServlet {
             } catch (NumberFormatException e) {
                 pNo = 0;
                 errorMsgs.put("pNo", "請輸入商品編號");
+            }
+            if (pNo<=0) {
+                errorMsgs.put("pNo", "商品編號請勿小於0");
             }
 
 
