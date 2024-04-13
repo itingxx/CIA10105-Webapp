@@ -117,7 +117,7 @@
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function () {
-            var imgStr = '<img src="' + reader.result + '" class="preview_img">';
+            var imgStr = '<img src="' + reader.result + '" class="preview_img" style="width:200; height: 200;">';
             document.getElementById('preview').innerHTML = imgStr;
         };
     }

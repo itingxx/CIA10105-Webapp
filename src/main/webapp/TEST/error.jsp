@@ -14,6 +14,6 @@
     <title>登錄失敗</title>
 </head>
 <body>
-登錄失敗請<a href="<%=request.getContextPath()%>/WEB-INF/TEST/example.jspT/example.jsp">重新登錄</a>
+登錄失敗請<a href="<%=request.getContextPath()%>/TEST/example.jsp">重新登錄</a>
 </body>
 </html>

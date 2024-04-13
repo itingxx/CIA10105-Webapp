@@ -12,7 +12,7 @@
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>ProductPictureServlet</servlet-name>
-		<servlet-class>ProductPicture.ProductPictureServlet</servlet-class>
+		<servlet-class>ProductPicture.controler.ProductPictureServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ProductPictureServlet</servlet-name>

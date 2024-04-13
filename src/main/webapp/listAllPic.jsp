@@ -1,14 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="dao.*" %>
 <%@ page import="ProductPicture.ProductPictureService" %>
 <%@ page import="ProductPicture.ProductPictureVO" %>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    ProductPictureService productPicture = new ProductPictureService();
-    List<ProductPictureVO> list = productPicture.getAll();
+    ProductPictureService productPictureService = new ProductPictureService();
+    List<ProductPictureVO> list = productPictureService.getAll();
     pageContext.setAttribute("list",list);
 %>
 
@@ -57,7 +56,7 @@
 <table id="table-1">
     <tr><td>
         <h3>所有員工資料 - listAllPic.jsp</h3>
-        <h4><a href="SelectPage.jsp"><img src="images/cat.png" width="100" height="100" border="0">回首頁</a></h4>
+        <h4><a href="SelectPage.jsp"><img src="images/cat.png" width="100" height="100" border="0" alt="圖片">回首頁</a></h4>
     </td></tr>
 </table>
 
@@ -68,7 +67,7 @@
         <th>照片</th>
         <th colspan="2">操作</th>
     </tr>
-    <%@ include file="page1" %>
+    <%@ include file="page1.file" %>
     <c:forEach var="productPictureVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
         <tr>
             <td>${productPictureVO.pPicNo}</td>
@@ -87,11 +86,10 @@
                     <input type="hidden" name="pPicNo"  value="${productPictureVO.pPicNo}">
                     <input type="hidden" name="action" value="delete"></FORM>
             </td>
-            </td>
         </tr>
     </c:forEach>
 </table>
-<%@ include file="page2" %>
+<%@ include file="page2.file" %>
 
 </body>
 </html>
