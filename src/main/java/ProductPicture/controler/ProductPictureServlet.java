@@ -42,14 +42,14 @@ public class ProductPictureServlet extends HttpServlet {
             Integer pPicNo=null;
 
             try {
-                 pPicNo = Integer.valueOf(str);//將字串轉為數字
+                pPicNo = Integer.valueOf(str);//將字串轉為數字
 
-                    if (pPicNo <= 0) {
-                        errorMsgs.add("照片編號應大於0");
-                    }
-                } catch (Exception e) {//字串轉數字失敗
-                    errorMsgs.add("照片編號格式不正確");
+                if (pPicNo <= 0) {
+                    errorMsgs.add("照片編號應大於0");
                 }
+            } catch (Exception e) {//字串轉數字失敗
+                errorMsgs.add("照片編號格式不正確");
+            }
 
 
             if (!errorMsgs.isEmpty()) {

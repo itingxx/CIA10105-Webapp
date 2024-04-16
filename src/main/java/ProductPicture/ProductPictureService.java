@@ -52,4 +52,4 @@ public class ProductPictureService {
     public List<ProductPictureVO> getAll() {
         return dao.getAll();
     }
-}
+  }

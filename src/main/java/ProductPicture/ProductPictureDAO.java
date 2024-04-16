@@ -15,10 +15,10 @@ public class ProductPictureDAO implements ProductPicture_interface {
 	private static final String GET_ONE_STMT = "SELECT pPicNo, pNo, pPic FROM ProductPicture where pPicNo = ?";
 	private static final String GET_ALL_STMT = "SELECT pPicNo, pNo, pPic FROM ProductPicture";
 	private static final String DELETE_PicNo = "DELETE FROM ProductPicture where pPicNo = ?";
-//private Integer pPicNo;
+	//private Integer pPicNo;
 //private Integer pNo;
 //private byte[] pPic;
-Connection con = null;
+	Connection con = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	//插入資料
@@ -110,55 +110,55 @@ Connection con = null;
 	public ProductPictureVO findByPrimaryKey(Integer pPicNo) {
 
 
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-		ProductPictureVO productPictureVO = new ProductPictureVO();
-        try {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductPictureVO productPictureVO=null;
+		try {
 
-            Class.forName(driver);
-            con = DriverManager.getConnection(url, userid, passwd);
-            pstmt = con.prepareStatement(GET_ONE_STMT);
-            pstmt.setInt(1, pPicNo);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-
-                productPictureVO.setpPicNo(rs.getInt("pPicNo"));
-                productPictureVO.setpNo(rs.getInt("pNo"));
-                productPictureVO.setpPic(rs.getBytes("pPic"));
-            }
-            // Handle any driver errors
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-            // Handle any SQL errors
-        } catch (SQLException se) {
-            throw new RuntimeException("A database error occured. " + se.getMessage());
-            // Clean up JDBC resources
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException se) {
-                    se.printStackTrace(System.err);
-                }
-            }
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException se) {
-                    se.printStackTrace(System.err);
-                }
-            }
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (Exception e) {
-                    e.printStackTrace(System.err);
-                }
-            }
-        }
-        return productPictureVO;
-    }
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+			pstmt.setInt(1, pPicNo);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				productPictureVO = new ProductPictureVO();
+				productPictureVO.setpPicNo(rs.getInt("pPicNo"));
+				productPictureVO.setpNo(rs.getInt("pNo"));
+				productPictureVO.setpPic(rs.getBytes("pPic"));
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return productPictureVO;
+	}
 
 	@Override
 	public List<ProductPictureVO> getAll() {
@@ -265,4 +265,4 @@ Connection con = null;
 
 	}
 
-	}
+}

@@ -11,6 +11,7 @@ public interface ProductPicture_interface {
     public ProductPictureVO findByPrimaryKey(Integer pPicNo);
     public List<ProductPictureVO> getAll();
     public void delete(Integer pPicNo);
+
     
    
    

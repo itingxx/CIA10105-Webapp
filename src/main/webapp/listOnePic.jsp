@@ -1,4 +1,4 @@
-<%@ page import="dao.*" %>
+
 <%@ page import="java.util.Base64" %>
 <%@ page import="ProductPicture.ProductPictureVO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
