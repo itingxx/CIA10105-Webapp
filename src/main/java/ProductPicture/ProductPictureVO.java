@@ -1,12 +1,32 @@
 package ProductPicture;
+import javax.persistence.*;
 
+
+@Entity
+@Table(name = "productpicture")
 public class ProductPictureVO implements java.io.Serializable {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "pPicNo", updatable = false)
 	    private Integer pPicNo;
+	@Column(name = "pNo")
 	    private Integer pNo;
+
+	@Column(name = "pPic", columnDefinition = "longblob")
 	    private byte[] pPic;
 
-	    public Integer getpPicNo() {
+	public ProductPictureVO() {
+		super();
+	}
+
+	public ProductPictureVO(Integer pPicNo, Integer pNo, byte[] pPic) {
+		super();
+		this.pPicNo = pPicNo;
+		this.pNo = pNo;
+		this.pPic = pPic;
+	}
+
+	public Integer getpPicNo() {
 			return pPicNo;
 		}
 

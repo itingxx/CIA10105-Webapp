@@ -17,7 +17,7 @@
         Class.forName("com.mysql.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/fallelove", "root", "850811");
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT pPic FROM ProductPicture "); // Assuming pPicNo is 1
+        ResultSet rs = stmt.executeQuery("SELECT pPic FROM ProductPicture "); // Assuming pNo is 1
 
         while (rs.next()) {
             Blob blob = rs.getBlob("pPic");

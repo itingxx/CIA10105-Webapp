@@ -1,27 +1,59 @@
 package Cart;
 
+
+import ProductOrderDetail.ProductOrderDetailVO;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "cart")
 public class CartVO {
 
-    public class ProductPictureVO implements java.io.Serializable {
+    @EmbeddedId
+    private CompositeDetail2 compositeKey2;
 
-        private Integer pPicNo;
+
+    @Column(name = "pBuyQty")
+        private Integer pBuyQty;
+
+
+
+    public CompositeDetail2 getCompositeKey2() {
+        return compositeKey2;
+    }
+    public void setCompositeKey(CompositeDetail2 compositeKey) {
+        this.compositeKey2 = compositeKey2;}
+
+
+
+        public Integer getpBuyQty() {
+            return pBuyQty;
+        }
+
+        public void setpBuyQty(Integer pBuyQty) {
+            this.pBuyQty = pBuyQty;
+        }
+
+
+
+    @Embeddable
+    public static class CompositeDetail2 implements Serializable {
+        private static final long serialVersionUID = 1L;
+        @Column(name = "pNo")
         private Integer pNo;
-        private byte[] pPic;
+        @Column(name = "memNo")
+        private Integer memNo;
 
-        public Integer getpPicNo() {
-            return pPicNo;
+
+        public CompositeDetail2(){
+            super();
         }
+        public CompositeDetail2(Integer pNo,Integer memNo){
+            super();
+            this.pNo = pNo;
+            this.memNo = memNo;
 
-        public void setpPicNo(Integer pPicNo) {
-            this.pPicNo = pPicNo;
-        }
-
-        public byte[] getpPic() {
-            return pPic;
-        }
-
-        public void setpPic(byte[] pPic) {
-            this.pPic = pPic;
         }
 
         public Integer getpNo() {
@@ -31,15 +63,36 @@ public class CartVO {
         public void setpNo(Integer pNo) {
             this.pNo = pNo;
         }
-        @Override
-        public String toString() {
-            return "ProductPictureVO [pPicNo=" + pPicNo + ", pNo=" + pNo + ", pPic=" + pPic + "]";
+
+        public Integer getmemNo() {
+            return memNo;
         }
 
+        public void setmemNo(Integer memNo) {
+            this.memNo = memNo;
+        }
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((pNo == null) ? 0 : pNo.hashCode());
+            result = prime * result + ((memNo == null) ? 0 : memNo.hashCode());
+            return result;
+        }
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+
+            if (obj != null && getClass() == obj.getClass()) {
+               CompositeDetail2 compositeKey2 = (CompositeDetail2) obj;
+                if (pNo.equals(compositeKey2.pNo) && memNo.equals(compositeKey2.memNo)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }}
 
 
-
-
-    }
-
-}
