@@ -82,12 +82,12 @@ public class CartVO {
             return false;
         }
     }
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memNo", referencedColumnName = "memNo")
     private MemberVO  memberVO;
     //優惠券一對多未設
     // fetch 預設為 EAGER
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pNo", referencedColumnName = "pNo")
     private ProductVO productVO;
     public MemberVO getmemberVO() {

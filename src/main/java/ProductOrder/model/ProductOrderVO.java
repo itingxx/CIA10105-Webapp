@@ -189,6 +189,7 @@ public class ProductOrderVO {
 
     @OneToMany(mappedBy = "productorder", cascade = CascadeType.ALL)
     @OrderBy("pOrdNo asc")
+    @PrimaryKeyJoinColumn
     private Set<ProductOrderDetailVO> productOrderDetail;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -148,7 +148,7 @@ private  CompositeDetail compositeKey;
     private ProductVO productVO;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pOrdNo", referencedColumnName = "pOrdNo")
     private ProductOrderVO productOrderVO ;
 

@@ -41,7 +41,7 @@ public class ProductPictureVO implements java.io.Serializable {
 
 
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pNo", referencedColumnName = "pNo")
 	private ProductVO productVO;
 
