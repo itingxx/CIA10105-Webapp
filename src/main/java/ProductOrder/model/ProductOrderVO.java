@@ -1,15 +1,17 @@
-package ProductOrder;
+package ProductOrder.model;
+
+import ProductOrderDetail.model.ProductOrderDetailVO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "productorder")
 public class ProductOrderVO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pOrdNo", updatable = false)
     private Integer pOrdNo;
     @Column(name = "memNo")
@@ -44,31 +46,6 @@ public class ProductOrderVO {
     private Byte pOrdStat;
     @Column(name = "pStat")
     private Byte pStat;
-
-    public ProductOrderVO() {
-        super();
-    }
-
-    public ProductOrderVO(Integer pOrdNo, Integer memNo, String pByrName, Integer pByrPhone, String pByrEmail, String pRcvName, String pRcvPhone, Byte pTakeMethod, String pAddr, Byte pPayMethod, BigDecimal pAllPrice, Integer coupNo, BigDecimal pDisc, BigDecimal pRealPrice, Timestamp pOrdTime, Byte pOrdStat, Byte pStat) {
-        super();
-        this.pOrdNo = pOrdNo;
-        this.memNo = memNo;
-        this.pByrName = pByrName;
-        this.pByrPhone = pByrPhone;
-        this.pByrEmail = pByrEmail;
-        this.pRcvName = pRcvName;
-        this.pRcvPhone = pRcvPhone;
-        this.pTakeMethod = pTakeMethod;
-        this.pAddr = pAddr;
-        this.pPayMethod = pPayMethod;
-        this.pAllPrice = pAllPrice;
-        this.coupNo = coupNo;
-        this.pDisc = pDisc;
-        this.pRealPrice = pRealPrice;
-        this.pOrdTime = pOrdTime;
-        this.pOrdStat = pOrdStat;
-        this.pStat = pStat;
-    }
 
 
 
@@ -169,6 +146,7 @@ public class ProductOrderVO {
         this.coupNo = coupNo;
     }
 
+
     public BigDecimal getpDisc() {
         return pDisc;
     }
@@ -209,5 +187,42 @@ public class ProductOrderVO {
         this.pStat = pStat;
     }
 
+    @OneToMany(mappedBy = "productorder", cascade = CascadeType.ALL)
+    @OrderBy("pOrdNo asc")
+    private Set<ProductOrderDetailVO> productOrderDetail;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memNo", referencedColumnName = "memNo")
+    private MemberVO  memberVO;
+
+    // fetch 預設為 EAGER
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coupNo", referencedColumnName = "coupNo")
+    private CoupNoVO coupNoVO;
+
+
+
+    public Set<ProductOrderDetailVO> getproductOrderDetail() {
+        return productOrderDetail;
+    }
+
+    public void setproductOrderDetail(Set<ProductOrderDetailVO> productOrderDetail) {
+        this.productOrderDetail = productOrderDetail;
+    }
+
+    public MemberVO getmemberVO() {
+        return memberVO;
+    }
+
+    public void setmemberVO(MemberVO memberVO) {
+        this.memberVO = memberVO;
+    }
+
+    public CoupNoVO getcoupNoVO() {
+        return coupNoVO;
+    }
+
+    public void setcoupNoVO(CoupNoVO coupNoVO) {
+        this.coupNoVO = coupNoVO;
+    }
 }

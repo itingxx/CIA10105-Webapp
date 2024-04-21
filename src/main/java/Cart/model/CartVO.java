@@ -1,7 +1,5 @@
-package Cart;
+package Cart.model;
 
-
-import ProductOrderDetail.ProductOrderDetailVO;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,25 +10,18 @@ public class CartVO {
 
     @EmbeddedId
     private CompositeDetail2 compositeKey2;
-
-
     @Column(name = "pBuyQty")
         private Integer pBuyQty;
 
-
-
-    public CompositeDetail2 getCompositeKey2() {
+    public CompositeDetail2 getcompositeKey2() {
         return compositeKey2;
     }
-    public void setCompositeKey(CompositeDetail2 compositeKey) {
+
+    public void setcompositeKey2(CompositeDetail2 compositeKey) {
         this.compositeKey2 = compositeKey2;}
-
-
-
         public Integer getpBuyQty() {
             return pBuyQty;
         }
-
         public void setpBuyQty(Integer pBuyQty) {
             this.pBuyQty = pBuyQty;
         }
@@ -59,15 +50,12 @@ public class CartVO {
         public Integer getpNo() {
             return pNo;
         }
-
         public void setpNo(Integer pNo) {
             this.pNo = pNo;
         }
-
         public Integer getmemNo() {
             return memNo;
         }
-
         public void setmemNo(Integer memNo) {
             this.memNo = memNo;
         }
@@ -93,6 +81,27 @@ public class CartVO {
 
             return false;
         }
-    }}
+    }
+    @ManyToOne
+    @JoinColumn(name = "memNo", referencedColumnName = "memNo")
+    private MemberVO  memberVO;
+    //優惠券一對多未設
+    // fetch 預設為 EAGER
+    @ManyToOne
+    @JoinColumn(name = "pNo", referencedColumnName = "pNo")
+    private ProductVO productVO;
+    public MemberVO getmemberVO() {
+        return memberVO;
+    }
+    public void setmemberVO(MemberVO memberVO) {
+        this.memberVO = memberVO;
+    }
+    public ProductVO getproductVO() {
+        return productVO;
+    }
+    public void setproductVO(ProductVO productVO) {
+        this.productVO = productVO;
+    }
+}
 
 

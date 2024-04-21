@@ -1,6 +1,6 @@
 package ProductPicture.controler;
 import ProductPicture.ProductPictureService;
-import ProductPicture.ProductPictureVO;
+import ProductPicture.model.ProductPictureVO;
 
 import java.io.*;
 import java.util.*;

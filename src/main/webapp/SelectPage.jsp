@@ -68,7 +68,7 @@
     <li>
         <FORM METHOD="post" ACTION="productPicture.do" >
             <b>輸入商品編號 (如7001):</b>
-            <input type="text" name="pNo">
+            <input type="text" name="pPicNo">
             <input type="hidden" name="action" value="getOne_For_Display">
             <input type="submit" value="送出">                   <h4>(資料格式驗證  by Controller ).</h4>
         </FORM>

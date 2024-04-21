@@ -1,4 +1,4 @@
-package ProductPicture;
+package ProductPicture.model;
 import javax.persistence.*;
 
 
@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Table(name = "productpicture")
 public class ProductPictureVO implements java.io.Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pPicNo", updatable = false)
 	    private Integer pPicNo;
 	@Column(name = "pNo")
@@ -15,16 +14,6 @@ public class ProductPictureVO implements java.io.Serializable {
 	@Column(name = "pPic", columnDefinition = "longblob")
 	    private byte[] pPic;
 
-	public ProductPictureVO() {
-		super();
-	}
-
-	public ProductPictureVO(Integer pPicNo, Integer pNo, byte[] pPic) {
-		super();
-		this.pPicNo = pPicNo;
-		this.pNo = pNo;
-		this.pPic = pPic;
-	}
 
 	public Integer getpPicNo() {
 			return pPicNo;
@@ -49,13 +38,20 @@ public class ProductPictureVO implements java.io.Serializable {
 	    public void setpNo(Integer pNo) {
 	        this.pNo = pNo;
 	    }
-	    @Override
-	    public String toString() {
-			return "ProductPictureVO [pPicNo=" + pPicNo + ", pNo=" + pNo + ", pPic=" + pPic + "]";
-		}
 
-		
 
-	
-	
+
+	@ManyToOne
+	@JoinColumn(name = "pNo", referencedColumnName = "pNo")
+	private ProductVO productVO;
+
+	public ProductVO getproductVO() {
+		return productVO;
+	}
+
+	public void setproductVO(ProductVO productVO) {
+		this.productVO = productVO;
+	}
+
+
 }

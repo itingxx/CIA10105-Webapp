@@ -17,11 +17,11 @@
 
         <property name="hibernate.current_session_context_class">thread</property>
 
-        <mapping class="ProductMyFavorite.ProductMyFavoriteVO"/>
-        <mapping class="ProductOrder.ProductOrderVO"/>
-        <mapping class="ProductOrderDetail.ProductOrderDetailVO"/>
-        <mapping class="ProductPicture.ProductPictureVO"/>
-        <mapping class="Cart.CartVO"/>
+        <mapping class="ProductMyFavorite.model.ProductMyFavoriteVO"/>
+        <mapping class="ProductOrder.model.ProductOrderVO"/>
+        <mapping class="ProductOrderDetail.model.ProductOrderDetailVO"/>
+        <mapping class="ProductPicture.model.ProductPictureVO"/>
+        <mapping class="model.CartVO"/>
 
     </session-factory>
 </hibernate-configuration>

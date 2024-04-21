@@ -1,5 +1,7 @@
 package ProductPicture;
 
+import ProductPicture.model.ProductPictureVO;
+
 import java.util.List;
 
 

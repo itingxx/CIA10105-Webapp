@@ -1,4 +1,6 @@
 package ProductPicture;
+import ProductPicture.model.ProductPictureVO;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

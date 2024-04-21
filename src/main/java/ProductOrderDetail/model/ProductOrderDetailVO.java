@@ -1,4 +1,6 @@
-package ProductOrderDetail;
+package ProductOrderDetail.model;
+
+import ProductOrder.model.ProductOrderVO;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,6 +35,9 @@ private  CompositeDetail compositeKey;
 	public void setCompositeKey(CompositeDetail compositeKey) {
 		this.compositeKey = compositeKey;}
 
+
+
+
     public BigDecimal getpPrice() {
         return pPrice;
     }
@@ -44,11 +49,9 @@ private  CompositeDetail compositeKey;
     public Integer getpOrdQty() {
         return pOrdQty;
     }
-
     public void setpOrdQty(Integer pOrdQty) {
         this.pOrdQty = pOrdQty;
     }
-
     public BigDecimal getpRealPrice() {
         return pRealPrice;
     }
@@ -86,12 +89,12 @@ private  CompositeDetail compositeKey;
 	@Embeddable
 	public static class CompositeDetail implements Serializable {
 		private static final long serialVersionUID = 1L;
-		@Column(name = "pOrdNo")
+		@Column(name = "pOrdNo", updatable = false)
 		private Integer pOrdNo;
-		@Column(name = "pNo")
+		@Column(name = "pNo", updatable = false)
 		private Integer pNo;
 
-public CompositeDetail(){
+    public CompositeDetail(){
         super();
 }
     public CompositeDetail(Integer pOrdNo,Integer pNo){
@@ -116,7 +119,7 @@ public CompositeDetail(){
         this.pNo = pNo;
     }
      //一定要 override 此類別的 hashCode() 與 equals() 方法！
-		@Override
+     @Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
@@ -138,4 +141,30 @@ public CompositeDetail(){
 
 			return false;
 		}
-}}
+}
+    // fetch 預設為 EAGER
+    @ManyToOne
+    @JoinColumn(name = "pNo", referencedColumnName = "pNo")
+    private ProductVO productVO;
+
+
+    @ManyToOne
+    @JoinColumn(name = "pOrdNo", referencedColumnName = "pOrdNo")
+    private ProductOrderVO productOrderVO ;
+
+    public ProductVO getproductVO() {
+        return productVO;
+    }
+
+    public void setproductVO(ProductVO productVO) {
+        this.productVO = productVO;
+    }
+
+    public ProductOrderVO getproductOrderVO() {
+        return productOrderVO;
+    }
+
+    public void setproductOrderVO(ProductOrderVO productOrderVO) {
+        this.productOrderVO = productOrderVO;
+    }
+}

@@ -1,6 +1,6 @@
 
 <%@ page import="java.util.Base64" %>
-<%@ page import="ProductPicture.ProductPictureVO" %>
+<%@ page import="ProductPicture.model.ProductPictureVO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 

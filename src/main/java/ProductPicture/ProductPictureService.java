@@ -1,4 +1,6 @@
 package ProductPicture;
+import ProductPicture.model.ProductPictureVO;
+
 import java.util.List;
 
 public class ProductPictureService {

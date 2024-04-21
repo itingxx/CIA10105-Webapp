@@ -3,7 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="dao.*"%>
 <%@ page import="ProductPicture.ProductPictureDAO" %>
-<%@ page import="ProductPicture.ProductPictureVO" %>
+<%@ page import="ProductPicture.model.ProductPictureVO" %>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
