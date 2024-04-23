@@ -8,20 +8,54 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/fallelove?serverTimezone=Asia/Taipei</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">850811</property>
-
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-
         <property name="hibernate.show_sql">true</property>
 
-        <property name="hibernate.hbm2ddl.auto">validate</property><!--驗證SQL指令是否錯誤,如不加跑到遇到錯才發生意外,開發時使用-->
+        <property name="hibernate.hbm2ddl.auto">validate</property>
 
         <property name="hibernate.current_session_context_class">thread</property>
 
-        <mapping class="ProductMyFavorite.model.ProductMyFavoriteVO"/>
-        <mapping class="ProductOrder.model.ProductOrderVO"/>
-        <mapping class="ProductOrderDetail.model.ProductOrderDetailVO"/>
-        <mapping class="ProductPicture.model.ProductPictureVO"/>
-        <mapping class="model.CartVO"/>
+        <property name="hibernate.format_sql">true</property>
+        <mapping class="com.chihyun.coupon.model.CouponVO"/>
+        <mapping class="com.chihyun.mycoupon.model.MyCouponVO"/>
+        <mapping class="com.chihyun.news.model.NewsVO"/>
+        <mapping class="com.chihyun.servicepicture.model.ServicePictureVO"/>
+        <mapping class="com.chihyun.servicerecord.model.ServiceRecordVO"/>
+        <mapping class="com.chihyun.servicerobot.model.ServiceRobotVO"/>
+        <!-- firesnoopy -->
+        <mapping class="com.firesnoopy.studioinfo.model.StudioInfoVO"/>
+        <mapping class="com.firesnoopy.studioorder.model.StudioOrderVO"/>
+        <mapping class="com.firesnoopy.studiotimebooking.model.StudioTimeBookingVO"/>
+        <!-- howard -->
+        <mapping class="com.howard.rentalmytrack.model.RentalMyTrackVO"/>
+        <mapping class="com.howard.rentalorder.model.RentalOrderVO"/>
+        <mapping class="com.howard.rentalorderdetails.model.RentalOrderDetailsVO"/>
+        <!-- iting -->
+        <mapping class="com.iting.cart.model.CartVO"/>
+        <mapping class="com.iting.productmyfavorite.model.ProductMyFavoriteVO"/>
+        <mapping class="com.iting.productorder.model.ProductOrderVO"/>
+        <mapping class="com.iting.productorderdetail.model.ProductOrderDetailVO"/>
+        <mapping class="com.iting.productpicture.model.ProductPictureVO"/>
+        <!-- ren -->
+        <mapping class="com.ren.admauthority.model.AdmAuthorityVO"/>
+        <mapping class="com.ren.administrator.model.AdministratorVO"/>
+        <mapping class="com.ren.authorityfunction.model.AuthorityFunctionVO"/>
+        <mapping class="com.ren.title.model.TitleVO"/>
+        <mapping class="com.ren.product.model.ProductVO"/>
+        <mapping class="com.ren.productcategory.model.ProductCategoryVO"/>
+        <!-- roger -->
+        <mapping class="com.roger.articlecollection.model.ArticleCollectionVO"/>
+        <mapping class="com.roger.clicklike.model.ClickLikeVO"/>
+        <mapping class="com.roger.columnarticle.model.ColumnArticleVO"/>
+        <mapping class="com.roger.columnreply.model.ColumnReplyVO"/>
+        <mapping class="com.roger.member.model.MemberVO"/>
+        <mapping class="com.roger.notice.model.NoticeVO"/>
+        <mapping class="com.roger.report.model.ReportVO"/>
+        <!-- yu -->
+        <mapping class="com.yu.rental.model.RentalVO"/>
+        <mapping class="com.yu.rentalcategory.model.RentalCategoryVO"/>
+        <mapping class="com.yu.rentalmyfavorite.model.RentalMyFavoriteVO"/>
+        <mapping class="com.yu.rentalpic.model.RentalPicVO"/>
+        <mapping class="com.yu.rentalset.model.RentSetVO"/>
 
     </session-factory>
 </hibernate-configuration>

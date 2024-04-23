@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="dao.*"%>
-<%@ page import="ProductPicture.ProductPictureDAO" %>
+<%@ page import="com.iting.productpicture.DAO.ProductPictureDAO" %>
 <%@ page import="ProductPicture.model.ProductPictureVO" %>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
@@ -57,7 +57,7 @@
 <table id="table-1">
     <tr><td>
         <h3>所有員工資料 - listAllPic2_byDAO.jsp</h3>
-        <h4><a href="../SelectPage.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+        <h4><a href="../WEB-INF/ProductPicture/SelectPage.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
     </td></tr>
 </table>
 
