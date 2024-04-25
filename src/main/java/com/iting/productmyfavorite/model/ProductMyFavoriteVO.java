@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "productmyfavorite")
-public class ProductMyFavoriteVO {
+public class ProductMyFavoriteVO implements java.io.Serializable{
     @EmbeddedId
     private CompositeProductMyFavorite compositeProductMyFavorite;
     @ManyToOne

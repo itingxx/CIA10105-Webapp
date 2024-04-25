@@ -1,6 +1,7 @@
+<%@ page import="com.iting.productpicture.model.ProductPictureVO" %>
+<%@ page import="com.iting.productorderdetail.DAO.ProductOrderDetailDAO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 
 
 <html>
@@ -79,30 +80,35 @@
         </c:forEach>
     </ul>
 </c:if>
-
+<% ProductOrderDetailDAO dao0 =new ProductPictureDAO();%><%pageContext.setAttribute("dao",dao0); %>
 <FORM METHOD="post" ACTION="productPicture.do" name="form1" enctype="multipart/form-data">
+    <select size="1" name="pNo">
+        <c:forEach var="productPictureService" items="${dao.all}" >   <!-- pageScope :p236 -->
+        <option value="${productPictureService.pPicNo}">${productPictureService.pPicNo}
+            </c:forEach>
+    </select>
     <label for="pNo">商品編號:</label><br>
     <input id="pNo" type="text" name="pNo"><br>
-    <label>商品圖片：</label>
-    <input type="file" id="pPic" name="pPic">
+    <label for="pOrdNo">商品圖片：</label><br>
+    <input id="pOrdNo" type="text" name="pOrdNo"><br>
 
     <div id="preview"  width="32" ;height="32">
         <span class="text" >預覽圖</span>
     </div>
 
 
-<%--        <jsp:useBean id="productPictureSvc" scope="page" class="com.iting.productpicture.DAO.ProductPictureService" />--%>
-<%--        <tr>--%>
-<%--            <td>圖片編號:<font color=red><b>*</b></font></td>--%>
-<%--            <td><select size="1" name="pPicNo">--%>
-<%--                <c:forEach var="deptVO" items="${deptSvc.all}">--%>
-<%--                <option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)? 'selected':'' } >${deptVO.dname}--%>
-<%--                    </c:forEach>--%>
-<%--            </select></td>--%>
-<%--        </tr>--%>
+    <%--        <jsp:useBean id="productPictureSvc" scope="page" class="com.iting.productpicture.DAO.ProductPictureService" />--%>
+    <%--        <tr>--%>
+    <%--            <td>圖片編號:<font color=red><b>*</b></font></td>--%>
+    <%--            <td><select size="1" name="pPicNo">--%>
+    <%--                <c:forEach var="deptVO" items="${deptSvc.all}">--%>
+    <%--                <option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)? 'selected':'' } >${deptVO.dname}--%>
+    <%--                    </c:forEach>--%>
+    <%--            </select></td>--%>
+    <%--        </tr>--%>
 
-<%--    </table>--%>
-<%--    <br>--%>
+    <%--    </table>--%>
+    <%--    <br>--%>
     <input type="hidden" name="action" value="insert">
     <input type="submit" value="送出新增">
 

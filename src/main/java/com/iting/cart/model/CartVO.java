@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "cart")
-public class CartVO {
+public class CartVO implements java.io.Serializable{
 
     @EmbeddedId
     private CompositeDetail2 compositeKey2;

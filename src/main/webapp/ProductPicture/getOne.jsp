@@ -57,7 +57,7 @@
     <tr>
         <td>
             <h3>所有員工資料 - listAllPic.jsp</h3>
-            <h4><a href="SelectPage.jsp"><img src="../images/cat.png" width="100" height="100" border="0" alt="圖片">回首頁</a></h4>
+            <h4><a href="<%=request.getContextPath()%>/ProductPicture/SelectPage.jsp"><img src="../images/cat.png" width="100" height="100" border="0" alt="圖片">回首頁</a></h4>
         </td>
     </tr>
 </table>

@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "productorderdetail")
-public class ProductOrderDetailVO {
+public class ProductOrderDetailVO implements java.io.Serializable{
     @EmbeddedId
     private CompositeDetail compositeKey;
     @Column(name = "pPrice")

@@ -20,10 +20,11 @@ public class ProductOrderDetailDAOimpl implements ProductOrderDetailDAO {
         return factory.getCurrentSession();
     }
 
-//    @Override
-//    public void insert(ProductOrderDetailVO productOrderDetailVO) {
-//        getSession().save(productOrderDetailVO);
-//    }
+  @Override
+  public ProductOrderDetailVO insert(ProductOrderDetailVO productOrderDetailVO) {
+      getSession().save(productOrderDetailVO);
+      return productOrderDetailVO;
+  }
 
 
 

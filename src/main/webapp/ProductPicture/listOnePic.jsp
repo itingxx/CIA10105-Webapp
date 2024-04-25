@@ -54,7 +54,7 @@
 <table id="table-1">
     <tr><td>
         <h3>員工資料 - listOnePic.jsp</h3>
-        <h4><a href="/ProductPicture/SelectPage.jsp"><img src="../images/cat.png" width="100" height="100" border="0">回首頁</a></h4>
+        <h4><a href="<%=request.getContextPath()%>/ProductPicture/SelectPage.jsp"><img src="../images/cat.png" width="100" height="100" border="0">回首頁</a></h4>
     </td></tr>
 </table>
 
@@ -70,7 +70,7 @@
         <td> <img src="data:image/png;base64,${Base64.getEncoder().encodeToString(productPictureVO.pPic)}" alt="照片" width="100" height="100"></td>
 
         <td>
-            <form method="post" action="/ProductPicture/productPicture.do" name="form1">
+            <form method="post" action="<%=request.getContextPath()%>/ProductPicture/productPicture.do" name="form1">
                 <input type="submit" value="修改">
                 <input type="hidden" name="pPicNo" value="${productPictureVO.pPicNo}">
                 <input type="hidden" name="action" value="getOne_For_Update">

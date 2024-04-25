@@ -61,7 +61,7 @@
 </c:if>
 
 <ul>
-    <li><a href='/ProductPicture/listAllPic.jsp'>List</a> all ProductPicture </li>
+    <li><a href='<%=request.getContextPath()%>/ProductPicture/listAllPic.jsp'>List</a> all ProductPicture </li>
 <%--    <li><a href='productPicture.do?action=getAll'> List</a> all productPicture  <h4>(getFromSession).</h4> </li>--%>
     <li><a href='addPic.jsp'>´¡¤J¸ê®Æ</a></li>
     <br><br><br>

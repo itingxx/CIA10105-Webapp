@@ -7,7 +7,7 @@ import com.iting.productorderdetail.model.ProductOrderDetailVO;
 import java.util.List;
 
 public interface ProductOrderDetailDAO {
-//    void insert(ProductOrderDetailVO productOrderDetailVO);
+    ProductOrderDetailVO insert(ProductOrderDetailVO productOrderDetailVO);
 
 
     List<ProductOrderDetailVO> getAll();

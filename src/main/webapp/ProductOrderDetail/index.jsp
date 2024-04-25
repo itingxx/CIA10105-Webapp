@@ -10,6 +10,7 @@
 <h1>這是一位後端人員作的網頁 QQ</h1>
 <h2>訂單系統</h2>
 <a href="${pageContext.request.contextPath}/ProductOrderDetail/productOrderDetail.do?action=getAll">查詢所有員工</a>
+<a href="${pageContext.request.contextPath}/ProductOrderDetail/productOrderDetail.do?action=add">查詢所有員工</a>
 <br><br>
 <h3><b>複合查詢 (使用 Criteria Query)：</b></h3>
 <form action="${pageContext.request.contextPath}/ProductOrderDetail/productOrderDetail.do" method="post">

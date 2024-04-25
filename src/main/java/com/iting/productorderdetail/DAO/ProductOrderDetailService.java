@@ -3,9 +3,11 @@ package com.iting.productorderdetail.DAO;
 
 import Util.HibernateUtil;
 import com.iting.productorderdetail.model.ProductOrderDetailVO;
+import com.iting.productpicture.model.ProductPictureVO;
 import org.hibernate.Session;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProductOrderDetailService {
     private ProductOrderDetailDAO dao;
@@ -15,10 +17,23 @@ public class ProductOrderDetailService {
     }
 
 
-//    public ProductOrderDetailVO addProductOrderDetailVO(ProductOrderDetailVO productOrderDetailVO) {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
+    public ProductOrderDetailVO addProductOrderDetailVO(Map<String, String> map) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+
+
+            ProductOrderDetailVO insertedProductOrderDetail = dao.insert(productOrderDetailVO);
+            session.getTransaction().commit();
+            return insertedProductOrderDetail;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 //
 //
 //    public ProductOrderDetailVO updateProductOrderDetailVO(ProductOrderDetailVO productOrderDetailVO) {

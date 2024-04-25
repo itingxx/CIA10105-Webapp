@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 @WebServlet("/ProductOrderDetail/productOrderDetail.do")
@@ -37,6 +38,9 @@ public class ProductOrderDetailServlet extends HttpServlet {
 //                case "compositeQuery":
 //                    forwardPath = getproductOrderDetailByCompositeQuery(req, res);
 //                    break;
+                case "add":
+                    forwardPath = insertproductOrderDetail(req, res);
+                    break;
                 default:
                     forwardPath = "/index.jsp";
             }
@@ -53,6 +57,20 @@ public class ProductOrderDetailServlet extends HttpServlet {
 
             return "/ProductOrderDetail/listAllProductOrderDetail.jsp";
         }
+    private String insertproductOrderDetail(HttpServletRequest req, HttpServletResponse res) {
+        String str = req.getParameter("pNo");
+        String str1 = req.getParameter("pOrdNo");
+        String str2 = req.getParameter("pPrice");
+        String str3 = req.getParameter("pOrdQty");
+        String str4 = req.getParameter("pRealPrice");
+        String str5 = req.getParameter("pComContent");
+        String str6 = req.getParameter("pScore");
+        Map<String, String> productOrderDetail = productOrderDetailService.addProductOrderDetailVO(map);
+
+        req.setAttribute("addproductOrderDetail", productOrderDetail);
+
+        return "/ProductOrderDetail/listAllProductOrderDetail.jsp";
+    }
 
 //        private String getproductOrderDetailByCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
 //            Map<String, String[]> map = req.getParameterMap();

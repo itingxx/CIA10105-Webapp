@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "productorder")
-public class ProductOrderVO {
+public class ProductOrderVO implements java.io.Serializable{
     @Id
     @Column(name = "pOrdNo", updatable = false)
     private Integer pOrdNo;
