@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "productorderdetail")
 public class ProductOrderDetailVO implements java.io.Serializable{
+
     @EmbeddedId
     private CompositeDetail compositeKey;
     @Column(name = "pPrice")
@@ -95,11 +96,11 @@ public class ProductOrderDetailVO implements java.io.Serializable{
         }
     }
 
-    public CompositeDetail getCompositeKey() {
+    public CompositeDetail getcompositeKey() {
         return compositeKey;
     }
 
-    public void setCompositeKey(CompositeDetail compositeKey) {
+    public void setcompositeKey(CompositeDetail compositeKey) {
         this.compositeKey = compositeKey;
     }
 

@@ -35,9 +35,9 @@ public class ProductOrderDetailServlet extends HttpServlet {
                 case "getAll":
                     forwardPath = getAllProductOrderDetail(req, res);
                     break;
-//                case "compositeQuery":
-//                    forwardPath = getproductOrderDetailByCompositeQuery(req, res);
-//                    break;
+                case "compositeQuery":
+                    forwardPath = getproductOrderDetailByCompositeQuery(req, res);
+                    break;
                 case "add":
                     forwardPath = insertproductOrderDetail(req, res);
                     break;
@@ -58,31 +58,30 @@ public class ProductOrderDetailServlet extends HttpServlet {
             return "/ProductOrderDetail/listAllProductOrderDetail.jsp";
         }
     private String insertproductOrderDetail(HttpServletRequest req, HttpServletResponse res) {
-        String str = req.getParameter("pNo");
-        String str1 = req.getParameter("pOrdNo");
-        String str2 = req.getParameter("pPrice");
-        String str3 = req.getParameter("pOrdQty");
-        String str4 = req.getParameter("pRealPrice");
-        String str5 = req.getParameter("pComContent");
-        String str6 = req.getParameter("pScore");
-        Map<String, String> productOrderDetail = productOrderDetailService.addProductOrderDetailVO(map);
+        Map<String, String[]> map = req.getParameterMap();
+        if (map != null) {
+            ProductOrderDetailVO productOrderDetailList =  productOrderDetailService.addProductOrderDetailVO(map);
+            req.setAttribute("productOrderDetailList", productOrderDetailList);
+        } else {
+            return "/index.jsp";
+        }
+        List<ProductOrderDetailVO> productOrderDetailList = productOrderDetailService.getAllProductOrderDetailVO();
 
-        req.setAttribute("addproductOrderDetail", productOrderDetail);
-
+        req.setAttribute("productOrderDetailList", productOrderDetailList);
         return "/ProductOrderDetail/listAllProductOrderDetail.jsp";
     }
 
-//        private String getproductOrderDetailByCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
-//            Map<String, String[]> map = req.getParameterMap();
-//
-//            if (map != null) {
-//                List<ProductOrderDetailVO> productOrderDetailList =  productOrderDetailService.getProductOrderDetailByCompositeQuery(map);
-//                req.setAttribute("productOrderDetailList", productOrderDetailList);
-//            } else {
-//                return "/index.jsp";
-//            }
-//            return "/productOrderDetail/listCompositeQueryproductOrderDetail.jsp";
-//        }
+        private String getproductOrderDetailByCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
+            Map<String, String[]> map = req.getParameterMap();
+
+            if (map != null) {
+                List<ProductOrderDetailVO> productOrderDetailList =  productOrderDetailService.getProductOrderDetailByCompositeQuery(map);
+                req.setAttribute("productOrderDetailList", productOrderDetailList);
+            } else {
+                return "/index.jsp";
+            }
+            return "/ProductOrderDetail/listCompositeQueryOrderDetail.jsp";
+        }
 
 
         @Override

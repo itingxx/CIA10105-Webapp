@@ -25,8 +25,8 @@
     </tr>
     <c:forEach var="productOrderDetail" items="${productOrderDetailList}">
         <tr>
-            <td>${productOrderDetail.pOrdNo}</td>
-            <td>${productOrderDetail.pNo}</td>
+            <td>${productOrderDetail.compositeKey.pOrdNo}</td>
+            <td>${productOrderDetail.compositeKey.pNo}</td>
             <td>${productOrderDetail.pPrice}</td>
             <td>${productOrderDetail.pOrdQty}</td>
             <td>${productOrderDetail.pRealPrice}</td>

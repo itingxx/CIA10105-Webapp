@@ -5,6 +5,7 @@ package com.iting.productorderdetail.DAO;
 import com.iting.productorderdetail.model.ProductOrderDetailVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductOrderDetailDAO {
     ProductOrderDetailVO insert(ProductOrderDetailVO productOrderDetailVO);
@@ -12,7 +13,7 @@ public interface ProductOrderDetailDAO {
 
     List<ProductOrderDetailVO> getAll();
 
-//    ProductOrderDetailVO getByCompositeQuery(Integer pOrdNo, Integer pNo);
+    List<ProductOrderDetailVO> getByCompositeQuery(Map<String, String> map);
 //
 //    List<ProductOrderDetailVO> getAllBypOrdNo(Integer pOrdNo);
 }

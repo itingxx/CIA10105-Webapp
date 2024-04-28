@@ -49,7 +49,7 @@
 <p>This is the Home page for productPicture: Home</p>
 
 <h3>資料查詢:</h3>
-
+<%=request.getContextPath()%>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
     <font style="color:red">請修正以下錯誤:</font>

@@ -1,7 +1,7 @@
-<%@ page import="com.iting.productpicture.model.ProductPictureVO" %>
-<%@ page import="com.iting.productorderdetail.DAO.ProductOrderDetailDAO" %>
+<%@ page import="com.iting.productorderdetail.DAO.ProductOrderDetailService" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 
 
 <html>
@@ -64,8 +64,8 @@
 
 <table id="table-1">
     <tr><td>
-        <h3>商品圖片資料新增 - addPic.jsp</h3></td><td>
-        <h4><a href="<%=request.getContextPath()%>/ProductPicture/SelectPage.jsp"><img src="../images/cat.png" width="100" height="100" border="0">回首頁</a></h4>
+        <h3>商品訂單明細資料新增 - addPic.jsp</h3></td><td>
+        <h4><a href="<%=request.getContextPath()%>/ProductOrderDetail/index.jsp"><img src="../images/cat.png" width="100" height="100" border="0">回首頁</a></h4>
     </td></tr>
 </table>
 
@@ -80,21 +80,30 @@
         </c:forEach>
     </ul>
 </c:if>
-<% ProductOrderDetailDAO dao0 =new ProductPictureDAO();%><%pageContext.setAttribute("dao",dao0); %>
-<FORM METHOD="post" ACTION="productPicture.do" name="form1" enctype="multipart/form-data">
-    <select size="1" name="pNo">
-        <c:forEach var="productPictureService" items="${dao.all}" >   <!-- pageScope :p236 -->
-        <option value="${productPictureService.pPicNo}">${productPictureService.pPicNo}
-            </c:forEach>
-    </select>
-    <label for="pNo">商品編號:</label><br>
-    <input id="pNo" type="text" name="pNo"><br>
-    <label for="pOrdNo">商品圖片：</label><br>
-    <input id="pOrdNo" type="text" name="pOrdNo"><br>
+<% ProductOrderDetailService dao0 =new ProductOrderDetailService();%><%pageContext.setAttribute("dao",dao0); %>
+<form action="${pageContext.request.contextPath}/ProductOrderDetail/productOrderDetail.do" method="post">
 
-    <div id="preview"  width="32" ;height="32">
-        <span class="text" >預覽圖</span>
-    </div>
+        <label>商品訂單編號：</label>
+        <input type="text" id="pOrdNo" name="pOrdNo">
+    <label>>商品編號：</label>
+        <input type="text" id="pNo" name="pNo">
+    <label>>商品價格：</label>
+    <input type="text" id="pPrice" name="pPrice">
+    <label>購買數量：</label>
+    <input type="text" id="pOrdQty" name="pOrdQty">
+    <label>訂單實付金額：</label>
+    <input type="text" id="pRealPrice" name="pRealPrice">
+    <label>評價內容：</label>
+    <input type="text" id="pComContent" name="pComContent">
+    <label>評價星等：</label>
+    <select name="pScore">
+        <option value="">選取</option>
+        <option value="1">1顆星</option>
+        <option value="2">2顆星</option>
+        <option value="3">3顆星</option>
+        <option value="4">4顆星</option>
+        <option value="5">5顆星</option>
+    </select>
 
 
     <%--        <jsp:useBean id="productPictureSvc" scope="page" class="com.iting.productpicture.DAO.ProductPictureService" />--%>
@@ -109,7 +118,7 @@
 
     <%--    </table>--%>
     <%--    <br>--%>
-    <input type="hidden" name="action" value="insert">
+    <input type="hidden" name="action" value="add">
     <input type="submit" value="送出新增">
 
 </FORM>
